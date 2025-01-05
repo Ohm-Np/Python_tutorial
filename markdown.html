@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Markdown Files &#8212; My sample book</title>
+    <title>Introduction &#8212; My sample book</title>
   
   
   
@@ -169,7 +169,7 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Markdown Files</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
 </ul>
@@ -354,7 +354,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Markdown Files</h1>
+    <h1>Introduction</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -364,10 +364,8 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-myst">What is MyST?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-roles-and-directives">Sample Roles and Directives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citations">Citations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learn-more">Learn more</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-geospatial-analysis">Overview of Geospatial Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-python-for-geospatial-work">Why Python for Geospatial Work?</a></li>
 </ul>
             </nav>
         </div>
@@ -379,59 +377,16 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="markdown-files">
-<h1>Markdown Files<a class="headerlink" href="#markdown-files" title="Link to this heading">#</a></h1>
-<p>Whether you write your book’s content in Jupyter Notebooks (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>) or
-in regular markdown files (<code class="docutils literal notranslate"><span class="pre">.md</span></code>), you’ll write in the same flavor of markdown
-called <strong>MyST Markdown</strong>.
-This is a simple file to help you get started and show off some syntax.</p>
-<section id="what-is-myst">
-<h2>What is MyST?<a class="headerlink" href="#what-is-myst" title="Link to this heading">#</a></h2>
-<p>MyST stands for “Markedly Structured Text”. It
-is a slight variation on a flavor of markdown called “CommonMark” markdown,
-with small syntax extensions to allow you to write <strong>roles</strong> and <strong>directives</strong>
-in the Sphinx ecosystem.</p>
-<p>For more about MyST, see <a class="reference external" href="https://jupyterbook.org/content/myst.html">the MyST Markdown Overview</a>.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
+<p>Welcome to this beginner-friendly tutorial on geospatial analysis using Python! This guide is designed to help you get familiar with Python, one of the most versatile programming languages for working with geospatial data. Throughout this tutorial, you will learn how to handle both vector and raster data, perform essential geospatial operations, and create visually appealing maps. Whether you’re new to geospatial analysis or looking to enhance your skills, this tutorial will walk you through key tasks such as data manipulation, visualizations, and creating interactive maps, providing you with the foundational knowledge to confidently work with spatial data in Python.</p>
+<section id="overview-of-geospatial-analysis">
+<h2>Overview of Geospatial Analysis<a class="headerlink" href="#overview-of-geospatial-analysis" title="Link to this heading">#</a></h2>
+<p>Geospatial analysis involves the examination and interpretation of spatial data, which includes both the location and the attributes of objects on the Earth’s surface. This type of analysis allows us to answer questions related to the geographic distribution of features, patterns, and relationships between objects in space. Common tasks in geospatial analysis include mapping, spatial statistics, proximity analysis, and overlaying multiple layers of geographic data. By leveraging specialized tools and libraries, such as those available in Python, analysts can visualize complex spatial data, perform measurements, and make data-driven decisions in fields ranging from urban planning to environmental conservation.</p>
 </section>
-<section id="sample-roles-and-directives">
-<h2>Sample Roles and Directives<a class="headerlink" href="#sample-roles-and-directives" title="Link to this heading">#</a></h2>
-<p>Roles and directives are two of the most powerful tools in Jupyter Book. They
-are like functions, but written in a markup language. They both
-serve a similar purpose, but <strong>roles are written in one line</strong>, whereas
-<strong>directives span many lines</strong>. They both accept different kinds of inputs,
-and what they do with those inputs depends on the specific role or directive
-that is being called.</p>
-<p>Here is a “note” directive:</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Here is a note</p>
-</div>
-<p>It will be rendered in a special box when you build your book.</p>
-<p>Here is an inline directive to refer to a document: <a class="reference internal" href="markdown-notebooks.html"><span class="doc">Notebooks with MyST Markdown</span></a>.</p>
-</section>
-<section id="citations">
-<h2>Citations<a class="headerlink" href="#citations" title="Link to this heading">#</a></h2>
-<p>You can also cite references that are stored in a <code class="docutils literal notranslate"><span class="pre">bibtex</span></code> file. For example,
-the following syntax: <code class="docutils literal notranslate"><span class="pre">{cite}`holdgraf_evidence_2014`</span></code> will render like
-this: <span id="id1">[<a class="reference internal" href="#id3" title="Christopher Ramsay Holdgraf, Wendy de Heer, Brian N. Pasley, and Robert T. Knight. Evidence for Predictive Coding in Human Auditory Cortex. In International Conference on Cognitive Neuroscience. Brisbane, Australia, Australia, 2014. Frontiers in Neuroscience.">HdHPK14</a>]</span>.</p>
-<p>Moreover, you can insert a bibliography into your page with this syntax:
-The <code class="docutils literal notranslate"><span class="pre">{bibliography}</span></code> directive must be used for all the <code class="docutils literal notranslate"><span class="pre">{cite}</span></code> roles to
-render properly.
-For example, if the references for your book are stored in <code class="docutils literal notranslate"><span class="pre">references.bib</span></code>,
-then the bibliography is inserted with:</p>
-<div class="docutils container" id="id2">
-<div role="list" class="citation-list">
-<div class="citation" id="id3" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">HdHPK14</a><span class="fn-bracket">]</span></span>
-<p>Christopher Ramsay Holdgraf, Wendy de Heer, Brian N. Pasley, and Robert T. Knight. Evidence for Predictive Coding in Human Auditory Cortex. In <em>International Conference on Cognitive Neuroscience</em>. Brisbane, Australia, Australia, 2014. Frontiers in Neuroscience.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="learn-more">
-<h2>Learn more<a class="headerlink" href="#learn-more" title="Link to this heading">#</a></h2>
-<p>This is just a simple starter to get you started.
-You can learn a lot more at <a class="reference external" href="https://jupyterbook.org">jupyterbook.org</a>.</p>
+<section id="why-python-for-geospatial-work">
+<h2>Why Python for Geospatial Work?<a class="headerlink" href="#why-python-for-geospatial-work" title="Link to this heading">#</a></h2>
+<p>Python is a powerful, open-source programming language that has become a popular choice for geospatial analysis due to its extensive support for spatial data manipulation and visualization. With the help of robust libraries like <code class="docutils literal notranslate"><span class="pre">GeoPandas</span></code>, <code class="docutils literal notranslate"><span class="pre">rasterio</span></code>, <code class="docutils literal notranslate"><span class="pre">Shapely</span></code>, and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, Python provides a flexible platform to work with both vector and raster data. These libraries allow users to easily import, analyze, visualize, and export geospatial data with minimal effort. Moreover, Python’s ability to integrate with other programming languages and its extensive library of statistical tools make it ideal for performing complex geospatial analyses, such as spatial modeling and spatial statistics. Its rich ecosystem and active community ensure that users can easily find resources and support, making Python a go-to choice for geospatial work.</p>
 </section>
 </section>
 
@@ -500,10 +455,8 @@ You can learn a lot more at <a class="reference external" href="https://jupyterb
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-myst">What is MyST?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-roles-and-directives">Sample Roles and Directives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citations">Citations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learn-more">Learn more</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-geospatial-analysis">Overview of Geospatial Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-python-for-geospatial-work">Why Python for Geospatial Work?</a></li>
 </ul>
   </nav></div>
 
