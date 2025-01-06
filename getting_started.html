@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Introduction &#8212; Geospatial Analysis with Python</title>
+    <title>Getting started &#8212; Geospatial Analysis with Python</title>
   
   
   
@@ -60,11 +60,11 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'markdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'getting_started';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Content with notebooks" href="notebooks.html" />
-    <link rel="prev" title="Geospatial Analysis with Python" href="intro.html" />
+    <link rel="next" title="Notebooks with MyST Markdown" href="markdown-notebooks.html" />
+    <link rel="prev" title="Introduction" href="markdown.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -169,8 +169,10 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">Introduction</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Getting started</a></li>
+
+
 <li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
 </ul>
 
@@ -248,7 +250,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmarkdown.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fgetting_started.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -278,7 +280,7 @@
       
       
       
-      <li><a href="_sources/markdown.md" target="_blank"
+      <li><a href="_sources/getting_started.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -288,7 +290,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -354,7 +356,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Introduction</h1>
+    <h1>Getting started</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -364,9 +366,11 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-geospatial-analysis">Overview of Geospatial Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-python-for-geospatial-work">Why Python for Geospatial Work?</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Getting started</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-python-environment">Setting Up Your Python Environment</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-required-python-packages">Installing Required Python Packages</a></li>
 </ul>
+
             </nav>
         </div>
     </div>
@@ -377,18 +381,98 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h1>
 <style> p { text-align: justify; } </style>
-<p>Welcome to this beginner-friendly tutorial on geospatial analysis using Python! This guide is designed to help you get familiar with Python, one of the most versatile programming languages for working with geospatial data. Throughout this tutorial, you will learn how to handle both vector and raster data, perform essential geospatial operations, and create visually appealing maps. Whether you’re new to geospatial analysis or looking to enhance your skills, this tutorial will walk you through key tasks such as data manipulation, visualizations, and creating interactive maps, providing you with the foundational knowledge to confidently work with spatial data in Python.</p>
-<section id="overview-of-geospatial-analysis">
-<h2>Overview of Geospatial Analysis<a class="headerlink" href="#overview-of-geospatial-analysis" title="Link to this heading">#</a></h2>
-<p>Geospatial analysis involves the examination and interpretation of spatial data, which includes both the location and the attributes of objects on the Earth’s surface. This type of analysis allows us to answer questions related to the geographic distribution of features, patterns, and relationships between objects in space. Common tasks in geospatial analysis include mapping, spatial statistics, proximity analysis, and overlaying multiple layers of geographic data. By leveraging specialized tools and libraries, such as those available in Python, analysts can visualize complex spatial data, perform measurements, and make data-driven decisions in fields ranging from urban planning to environmental conservation.</p>
+<p>Before diving into geospatial analysis, it’s essential to set up your working environment and become familiar with the key tools and libraries used in Python for geospatial data processing. This chapter will guide you through the process of installing Python, setting up a virtual environment, and configuring the necessary packages like GeoPandas, Rasterio, and Matplotlib. You’ll also learn about the structure of geospatial datasets, such as vector and raster data, and how to prepare your system for effective analysis. By the end of this chapter, you’ll have everything in place to begin working with geospatial data in Python, ready to explore and manipulate spatial information efficiently.</p>
 </section>
-<section id="why-python-for-geospatial-work">
-<h2>Why Python for Geospatial Work?<a class="headerlink" href="#why-python-for-geospatial-work" title="Link to this heading">#</a></h2>
-<p>Python is a powerful, open-source programming language that has become a popular choice for geospatial analysis due to its extensive support for spatial data manipulation and visualization. With the help of robust libraries like <code class="docutils literal notranslate"><span class="pre">GeoPandas</span></code>, <code class="docutils literal notranslate"><span class="pre">rasterio</span></code>, <code class="docutils literal notranslate"><span class="pre">Shapely</span></code>, and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, Python provides a flexible platform to work with both vector and raster data. These libraries allow users to easily import, analyze, visualize, and export geospatial data with minimal effort. Moreover, Python’s ability to integrate with other programming languages and its extensive library of statistical tools make it ideal for performing complex geospatial analyses, such as spatial modeling and spatial statistics. Its rich ecosystem and active community ensure that users can easily find resources and support, making Python a go-to choice for geospatial work.</p>
+<section class="tex2jax_ignore mathjax_ignore" id="setting-up-your-python-environment">
+<h1>Setting Up Your Python Environment<a class="headerlink" href="#setting-up-your-python-environment" title="Link to this heading">#</a></h1>
+<p>In Python, we use an environment to manage dependencies. Here’s how to set up everything:</p>
+<p><strong>Install Python and VS Code:</strong></p>
+<p><strong>1. Download Python:</strong></p>
+<ul class="simple">
+<li><p>Go to the official <a class="reference external" href="https://www.python.org/downloads/">Python website</a>.</p></li>
+<li><p>Download and install the latest version for your operating system.</p></li>
+<li><p>Make sure to check the box Add Python to PATH during installation.</p></li>
+</ul>
+<p><strong>2. Install VS Code:</strong></p>
+<ul class="simple">
+<li><p>Download from Visual Studio Code’s website.</p></li>
+<li><p>Install it and set up the Python extension (see instructions in previous responses).</p></li>
+</ul>
 </section>
+<section class="tex2jax_ignore mathjax_ignore" id="installing-required-python-packages">
+<h1>Installing Required Python Packages<a class="headerlink" href="#installing-required-python-packages" title="Link to this heading">#</a></h1>
+<p>Install the geospatial libraries you’ll need for the analysis. In Python, we use tools like <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, <code class="docutils literal notranslate"><span class="pre">rasterio</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.</p>
+<p>Run this command in the terminal:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">geopandas</span> <span class="n">rasterio</span> <span class="n">pandas</span> <span class="n">matplotlib</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: geopandas in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (1.0.1)
+Requirement already satisfied: rasterio in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (1.4.3)
+Requirement already satisfied: pandas in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (1.4.0)
+Requirement already satisfied: matplotlib in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (3.9.4)
+Requirement already satisfied: numpy&gt;=1.22 in c:\users\ombha\appdata\roaming\python\python39\site-packages (from geopandas) (1.26.4)
+Requirement already satisfied: pyogrio&gt;=0.7.2 in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from geopandas) (0.10.0)
+Requirement already satisfied: packaging in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from geopandas) (24.2)
+Requirement already satisfied: pyproj&gt;=3.3.0 in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from geopandas) (3.3.0)
+Requirement already satisfied: shapely&gt;=2.0.0 in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from geopandas) (2.0.6)
+Requirement already satisfied: affine in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from rasterio) (2.4.0)
+Requirement already satisfied: attrs in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from rasterio) (21.4.0)
+Requirement already satisfied: certifi in c:\users\ombha\appdata\roaming\python\python39\site-packages (from rasterio) (2024.2.2)
+Requirement already satisfied: click&gt;=4.0 in c:\users\ombha\appdata\roaming\python\python39\site-packages (from rasterio) (8.1.7)
+Requirement already satisfied: cligj&gt;=0.5 in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from rasterio) (0.7.2)
+Requirement already satisfied: importlib-metadata in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from rasterio) (8.5.0)
+Requirement already satisfied: click-plugins in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from rasterio) (1.1.1)
+Requirement already satisfied: pyparsing in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from rasterio) (3.0.7)
+Requirement already satisfied: python-dateutil&gt;=2.8.1 in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from pandas) (2.8.2)
+Requirement already satisfied: pytz&gt;=2020.1 in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from pandas) (2021.3)
+Requirement already satisfied: contourpy&gt;=1.0.1 in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from matplotlib) (1.3.0)
+Requirement already satisfied: cycler&gt;=0.10 in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from matplotlib) (0.12.1)
+Requirement already satisfied: fonttools&gt;=4.22.0 in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from matplotlib) (4.29.0)
+Requirement already satisfied: kiwisolver&gt;=1.3.1 in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from matplotlib) (1.3.2)
+Requirement already satisfied: pillow&gt;=8 in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from matplotlib) (9.0.0)
+Requirement already satisfied: importlib-resources&gt;=3.2.0 in c:\users\ombha\appdata\roaming\python\python39\site-packages (from matplotlib) (6.3.2)
+Requirement already satisfied: colorama in c:\users\ombha\appdata\roaming\python\python39\site-packages (from click&gt;=4.0-&gt;rasterio) (0.4.6)
+Requirement already satisfied: zipp&gt;=3.1.0 in c:\users\ombha\appdata\local\programs\python\python39\lib\site-packages (from importlib-resources&gt;=3.2.0-&gt;matplotlib) (3.21.0)
+Requirement already satisfied: six&gt;=1.5 in c:\users\ombha\appdata\roaming\python\python39\site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas) (1.16.0)
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: Ignoring invalid distribution -rotobuf (c:\users\ombha\appdata\roaming\python\python39\site-packages)
+WARNING: Ignoring invalid distribution -rotobuf (c:\users\ombha\appdata\roaming\python\python39\site-packages)
+WARNING: Ignoring invalid distribution -rotobuf (c:\users\ombha\appdata\roaming\python\python39\site-packages)
+WARNING: Ignoring invalid distribution -rotobuf (c:\users\ombha\appdata\roaming\python\python39\site-packages)
+WARNING: Ignoring invalid distribution -rotobuf (c:\users\ombha\appdata\roaming\python\python39\site-packages)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Python Script for Setting Up Packages</strong></p>
+<p>To make ensure the required Python libraries are installed, You can use a script like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c1"># List of required packages</span>
+<span class="n">packages</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;geopandas&quot;</span><span class="p">,</span> <span class="s2">&quot;rasterio&quot;</span><span class="p">,</span> <span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="s2">&quot;matplotlib&quot;</span><span class="p">]</span>
+
+<span class="c1"># Install missing packages</span>
+<span class="k">for</span> <span class="n">package</span> <span class="ow">in</span> <span class="n">packages</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">__import__</span><span class="p">(</span><span class="n">package</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="n">package</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -422,20 +506,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="intro.html"
+       href="markdown.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Geospatial Analysis with Python</p>
+        <p class="prev-next-title">Introduction</p>
       </div>
     </a>
     <a class="right-next"
-       href="notebooks.html"
+       href="markdown-notebooks.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Content with notebooks</p>
+        <p class="prev-next-title">Notebooks with MyST Markdown</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -456,9 +540,11 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-geospatial-analysis">Overview of Geospatial Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-python-for-geospatial-work">Why Python for Geospatial Work?</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Getting started</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-python-environment">Setting Up Your Python Environment</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-required-python-packages">Installing Required Python Packages</a></li>
 </ul>
+
   </nav></div>
 
 </div></div>

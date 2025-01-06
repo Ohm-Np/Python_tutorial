@@ -1,5 +1,7 @@
 # Introduction
 
+<style> p { text-align: justify; } </style>
+
 Welcome to this beginner-friendly tutorial on geospatial analysis using Python! This guide is designed to help you get familiar with Python, one of the most versatile programming languages for working with geospatial data. Throughout this tutorial, you will learn how to handle both vector and raster data, perform essential geospatial operations, and create visually appealing maps. Whether you’re new to geospatial analysis or looking to enhance your skills, this tutorial will walk you through key tasks such as data manipulation, visualizations, and creating interactive maps, providing you with the foundational knowledge to confidently work with spatial data in Python.
 
 ## Overview of Geospatial Analysis
