@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Introduction &#8212; Geospatial Analysis with Python</title>
+    <title>Loading Geospatial Data &#8212; Geospatial Analysis with Python</title>
   
   
   
@@ -60,11 +60,10 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'markdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'loading_geodata';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Getting started" href="getting_started.html" />
-    <link rel="prev" title="Geospatial Analysis with Python" href="intro.html" />
+    <link rel="prev" title="Getting started" href="getting_started.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -169,9 +168,9 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="loading_geodata.html">Loading Geospatial Data</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Loading Geospatial Data</a></li>
 </ul>
 
     </div>
@@ -248,7 +247,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmarkdown.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Floading_geodata.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -278,7 +277,7 @@
       
       
       
-      <li><a href="_sources/markdown.md" target="_blank"
+      <li><a href="_sources/loading_geodata.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -288,7 +287,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -341,9 +340,7 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -354,20 +351,11 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Introduction</h1>
+    <h1>Loading Geospatial Data</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-geospatial-analysis">Overview of Geospatial Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-python-for-geospatial-work">Why Python for Geospatial Work?</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -377,18 +365,105 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="loading-geospatial-data">
+<h1>Loading Geospatial Data<a class="headerlink" href="#loading-geospatial-data" title="Link to this heading">#</a></h1>
 <style> p { text-align: justify; } </style>
-<p>Welcome to this beginner-friendly tutorial on geospatial analysis using Python! This guide is designed to help you get familiar with Python, one of the most versatile programming languages for working with geospatial data. Throughout this tutorial, you will learn how to handle both vector and raster data, perform essential geospatial operations, and create visually appealing maps. Whether you’re new to geospatial analysis or looking to enhance your skills, this tutorial will walk you through key tasks such as data manipulation, visualizations, and creating interactive maps, providing you with the foundational knowledge to confidently work with spatial data in Python.</p>
-<section id="overview-of-geospatial-analysis">
-<h2>Overview of Geospatial Analysis<a class="headerlink" href="#overview-of-geospatial-analysis" title="Link to this heading">#</a></h2>
-<p>Geospatial analysis involves the examination and interpretation of spatial data, which includes both the location and the attributes of objects on the Earth’s surface. This type of analysis allows us to answer questions related to the geographic distribution of features, patterns, and relationships between objects in space. Common tasks in geospatial analysis include mapping, spatial statistics, proximity analysis, and overlaying multiple layers of geographic data. By leveraging specialized tools and libraries, such as those available in Python, analysts can visualize complex spatial data, perform measurements, and make data-driven decisions in fields ranging from urban planning to environmental conservation.</p>
-</section>
-<section id="why-python-for-geospatial-work">
-<h2>Why Python for Geospatial Work?<a class="headerlink" href="#why-python-for-geospatial-work" title="Link to this heading">#</a></h2>
-<p>Python is a powerful, open-source programming language that has become a popular choice for geospatial analysis due to its extensive support for spatial data manipulation and visualization. With the help of robust libraries like <code class="docutils literal notranslate"><span class="pre">GeoPandas</span></code>, <code class="docutils literal notranslate"><span class="pre">rasterio</span></code>, <code class="docutils literal notranslate"><span class="pre">Shapely</span></code>, and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, Python provides a flexible platform to work with both vector and raster data. These libraries allow users to easily import, analyze, visualize, and export geospatial data with minimal effort. Moreover, Python’s ability to integrate with other programming languages and its extensive library of statistical tools make it ideal for performing complex geospatial analyses, such as spatial modeling and spatial statistics. Its rich ecosystem and active community ensure that users can easily find resources and support, making Python a go-to choice for geospatial work.</p>
-</section>
+<p>When working with geospatial data in Python, one of the first steps is to load your data into a usable format. For this tutorial, we will focus on GeoPackage (gpkg) files for vector data and GeoTIFF (tif) files for raster data. These formats are widely used in geospatial analysis due to their flexibility and efficiency. Let’s explore how to load and visualize both types of data.</p>
+<p><strong>1. Loading and Visualizing Vector Data</strong></p>
+<p>Vector data, stored in formats like GeoPackage, represents geographic features as points, lines, or polygons. Each feature comes with associated attributes, such as the name of a location or the length of a road.</p>
+<p>To handle vector data in Python, we’ll use the <code class="docutils literal notranslate"><span class="pre">GeoPandas</span></code> library. GeoPandas makes it easy to load vector data into a structure called a GeoDataFrame, which is similar to a Pandas DataFrame but includes spatial features. Loading a GeoPackage file is straightforward: you simply specify the file path and layer name. Once loaded, you can inspect your data, filter specific features, or visualize it directly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import geopandas library</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span> 
+
+<span class="c1"># Load a geopackage file</span>
+<span class="n">vector_data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;data/vector/kanchanpur.gpkg&quot;</span><span class="p">)</span>
+
+<span class="c1"># View the first few rows</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vector_data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           NAME                                           geometry
+0  BaisiBichawa  MULTIPOLYGON (((80.49934 28.64667, 80.49709 28...
+1      Beldandi  MULTIPOLYGON (((80.25229 28.75782, 80.25377 28...
+2      Chandani  MULTIPOLYGON (((80.10973 28.98432, 80.10986 28...
+3        Daijee  MULTIPOLYGON (((80.34424 29.05416, 80.34449 29...
+4   Dekhatbhuli  MULTIPOLYGON (((80.44701 28.78921, 80.43608 28...
+</pre></div>
+</div>
+</div>
+</div>
+<p>For visualization, GeoPandas integrates seamlessly with Matplotlib, enabling you to plot features on a map. For instance, you can display the boundaries of polygons or the paths of line features with just a few commands. You can also style the visualization, for example, by coloring polygons based on an attribute like population density.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import matplotlib library</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Plot vector data</span>
+<span class="n">vector_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;NAME&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Kanchanpur District, Nepal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/949ed976d7d3aacf307b7601dcd3d1b4251310ca52048e1ee64c41af811b1e88.png" src="_images/949ed976d7d3aacf307b7601dcd3d1b4251310ca52048e1ee64c41af811b1e88.png" />
+</div>
+</div>
+<p><strong>2. Loading and Visualizing Raster Data</strong></p>
+<p>Raster data, often stored as GeoTIFF files, represents the Earth as a grid of cells (or pixels), where each cell holds a value such as elevation or temperature. Unlike vector data, raster data is continuous and is commonly used for tasks like analyzing satellite imagery or modeling terrain.</p>
+<p>To work with raster data in Python, we’ll use the <code class="docutils literal notranslate"><span class="pre">rasterio</span></code> library. Rasterio allows you to read GeoTIFF files and access both the pixel values and metadata, such as the spatial resolution and coordinate reference system (CRS). When you load a raster file, the pixel values can be extracted as an array, which can then be processed or visualized.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import rasterio library</span>
+<span class="kn">import</span> <span class="nn">rasterio</span>
+
+<span class="c1"># Load a raster file</span>
+<span class="n">raster_data</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;data/raster/landcover_2015.tif&quot;</span><span class="p">)</span>
+
+<span class="c1"># Print raster metadata</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">raster_data</span><span class="o">.</span><span class="n">meta</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;driver&#39;: &#39;GTiff&#39;, &#39;dtype&#39;: &#39;uint32&#39;, &#39;nodata&#39;: 4294967295.0, &#39;width&#39;: 505, &#39;height&#39;: 590, &#39;count&#39;: 1, &#39;crs&#39;: CRS.from_wkt(&#39;GEOGCS[&quot;WGS 84&quot;,DATUM[&quot;World Geodetic System 1984&quot;,SPHEROID[&quot;WGS 84&quot;,6378137,298.257223563]],PRIMEM[&quot;Greenwich&quot;,0],UNIT[&quot;degree&quot;,0.0174532925199433,AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],AXIS[&quot;Latitude&quot;,NORTH],AXIS[&quot;Longitude&quot;,EAST]]&#39;), &#39;transform&#39;: Affine(0.0009920634920634916, 0.0, 80.06051587301587,
+       0.0, -0.0009920634920634892, 29.136904761904802)}
+</pre></div>
+</div>
+</div>
+</div>
+<p>For visualization, libraries like <code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">rasterio.plot</span></code> can be used to display raster data as images. You can apply color maps to represent different pixel values or overlay the raster data on a map for context. This is especially useful for visualizing features like vegetation indices or elevation gradients.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import required libraries</span>
+<span class="kn">import</span> <span class="nn">rasterio</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Load the raster data</span>
+<span class="n">raster_file</span> <span class="o">=</span> <span class="s2">&quot;data/raster/landcover_2015.tif&quot;</span>
+
+<span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">raster_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+    <span class="n">raster_data</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Read the first band (common for single-band rasters)</span>
+    
+    <span class="c1"># Plot the raster using Matplotlib</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">raster_data</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Pixel Value&quot;</span><span class="p">)</span>  <span class="c1"># Add a colorbar to indicate pixel values</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ESA Land Cover 2015&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Column Index&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Row Index&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9f4d5ab8e88f3925a9827b26c74d5348e3f386a2e8b2bf00272e3f3583c674b2.png" src="_images/9f4d5ab8e88f3925a9827b26c74d5348e3f386a2e8b2bf00272e3f3583c674b2.png" />
+</div>
+</div>
+<p>In this tutorial, we’ve introduced how to load and visualize geospatial data using GeoPandas for vector data and rasterio for raster data. These libraries provide powerful tools for geospatial analysis, and understanding how to load and inspect your data is the first step in any analysis workflow. In the next sections, we’ll dive deeper into processing and analyzing this data to extract meaningful insights.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -422,22 +497,13 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="intro.html"
+       href="getting_started.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Geospatial Analysis with Python</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="getting_started.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Getting started</p>
       </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -445,23 +511,6 @@
             </div>
             
             
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-geospatial-analysis">Overview of Geospatial Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-python-for-geospatial-work">Why Python for Geospatial Work?</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
