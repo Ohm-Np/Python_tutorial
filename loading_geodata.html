@@ -340,7 +340,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -356,6 +358,15 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-and-visualizing-vector-data">Loading and Visualizing Vector Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-and-visualizing-raster-data">Loading and Visualizing Raster Data</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -369,7 +380,8 @@
 <h1>Loading Geospatial Data<a class="headerlink" href="#loading-geospatial-data" title="Link to this heading">#</a></h1>
 <style> p { text-align: justify; } </style>
 <p>When working with geospatial data in Python, one of the first steps is to load your data into a usable format. For this tutorial, we will focus on GeoPackage (gpkg) files for vector data and GeoTIFF (tif) files for raster data. These formats are widely used in geospatial analysis due to their flexibility and efficiency. Let’s explore how to load and visualize both types of data.</p>
-<p><strong>1. Loading and Visualizing Vector Data</strong></p>
+<section id="loading-and-visualizing-vector-data">
+<h2>Loading and Visualizing Vector Data<a class="headerlink" href="#loading-and-visualizing-vector-data" title="Link to this heading">#</a></h2>
 <p>Vector data, stored in formats like GeoPackage, represents geographic features as points, lines, or polygons. Each feature comes with associated attributes, such as the name of a location or the length of a road.</p>
 <p>To handle vector data in Python, we’ll use the <code class="docutils literal notranslate"><span class="pre">GeoPandas</span></code> library. GeoPandas makes it easy to load vector data into a structure called a GeoDataFrame, which is similar to a Pandas DataFrame but includes spatial features. Loading a GeoPackage file is straightforward: you simply specify the file path and layer name. Once loaded, you can inspect your data, filter specific features, or visualize it directly.</p>
 <div class="cell docutils container">
@@ -413,7 +425,9 @@
 <img alt="_images/949ed976d7d3aacf307b7601dcd3d1b4251310ca52048e1ee64c41af811b1e88.png" src="_images/949ed976d7d3aacf307b7601dcd3d1b4251310ca52048e1ee64c41af811b1e88.png" />
 </div>
 </div>
-<p><strong>2. Loading and Visualizing Raster Data</strong></p>
+</section>
+<section id="loading-and-visualizing-raster-data">
+<h2>Loading and Visualizing Raster Data<a class="headerlink" href="#loading-and-visualizing-raster-data" title="Link to this heading">#</a></h2>
 <p>Raster data, often stored as GeoTIFF files, represents the Earth as a grid of cells (or pixels), where each cell holds a value such as elevation or temperature. Unlike vector data, raster data is continuous and is commonly used for tasks like analyzing satellite imagery or modeling terrain.</p>
 <p>To work with raster data in Python, we’ll use the <code class="docutils literal notranslate"><span class="pre">rasterio</span></code> library. Rasterio allows you to read GeoTIFF files and access both the pixel values and metadata, such as the spatial resolution and coordinate reference system (CRS). When you load a raster file, the pixel values can be extracted as an array, which can then be processed or visualized.</p>
 <div class="cell docutils container">
@@ -465,6 +479,7 @@
 </div>
 <p>In this tutorial, we’ve introduced how to load and visualize geospatial data using GeoPandas for vector data and rasterio for raster data. These libraries provide powerful tools for geospatial analysis, and understanding how to load and inspect your data is the first step in any analysis workflow. In the next sections, we’ll dive deeper into processing and analyzing this data to extract meaningful insights.</p>
 </section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -511,6 +526,23 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-and-visualizing-vector-data">Loading and Visualizing Vector Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-and-visualizing-raster-data">Loading and Visualizing Raster Data</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
