@@ -1,0 +1,777 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Basic Vector Operations &#8212; Geospatial Analysis with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'vector_operations';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Loading Geospatial Data" href="loading_geodata.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Geospatial Analysis with Python - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Geospatial Analysis with Python - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Geospatial Analysis with Python
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loading_geodata.html">Loading Geospatial Data</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Basic Vector Operations</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Ohm-Np/Python_tutorial" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Ohm-Np/Python_tutorial/issues/new?title=Issue%20on%20page%20%2Fvector_operations.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/vector_operations.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Basic Vector Operations</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-and-inspecting">Loading and Inspecting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subsetting">Subsetting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subsetting-based-on-attribute">Subsetting Based on Attribute</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subsetting-based-on-spatial-location">Subsetting Based on Spatial Location</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-transformations">Spatial Transformations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reprojecting">Reprojecting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#buffering-features">Buffering features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intersection">Intersection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#area-computation">Area Computation</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="basic-vector-operations">
+<h1>Basic Vector Operations<a class="headerlink" href="#basic-vector-operations" title="Link to this heading">#</a></h1>
+<style> p { text-align: justify; } </style>
+<p>Vector data is a fundamental type of geospatial data that represents geographic features as points, lines, or polygons. Each feature is associated with attributes, making it possible to store and analyze spatial and non-spatial data together. In this chapter, you’ll learn how to perform basic operations on vector data using Python, including reading data, inspecting it, filtering, and performing basic transformations.</p>
+<p>We’ll use the <code class="docutils literal notranslate"><span class="pre">GeoPandas</span></code> library for these operations, which simplifies working with vector data in Python. GeoPandas extends pandas to handle spatial data and integrates seamlessly with libraries like matplotlib for visualization.</p>
+<section id="loading-and-inspecting">
+<h2>Loading and Inspecting<a class="headerlink" href="#loading-and-inspecting" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">GeoPandas</span></code> allows you to read vector data formats such as Shapefiles, GeoJSON, or GeoPackages. Here’s how you can load a GeoPackage file:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span> 
+
+<span class="c1"># Load a geopackage file</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;data/vector/kanchanpur.gpkg&quot;</span>
+<span class="n">vector_data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+<span class="c1"># View the first few rows</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vector_data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           NAME                                           geometry
+0  BaisiBichawa  MULTIPOLYGON (((80.49934 28.64667, 80.49709 28...
+1      Beldandi  MULTIPOLYGON (((80.25229 28.75782, 80.25377 28...
+2      Chandani  MULTIPOLYGON (((80.10973 28.98432, 80.10986 28...
+3        Daijee  MULTIPOLYGON (((80.34424 29.05416, 80.34449 29...
+4   Dekhatbhuli  MULTIPOLYGON (((80.44701 28.78921, 80.43608 28...
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">read_file()</span></code> function reads the vector data and returns a GeoDataFrame.</p></li>
+<li><p>You can inspect the structure of the data using <code class="docutils literal notranslate"><span class="pre">.head()</span></code>, which displays the first few rows.</p></li>
+</ul>
+<p>Once the data is loaded, it’s essential to understand its structure and content. GeoPandas provides useful attributes and methods for this purpose.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the geometry column</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vector_data</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># Display the column names</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vector_data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="c1"># Check the Coordinate Reference System (CRS)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vector_data</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    MULTIPOLYGON (((80.49934 28.64667, 80.49709 28...
+1    MULTIPOLYGON (((80.25229 28.75782, 80.25377 28...
+2    MULTIPOLYGON (((80.10973 28.98432, 80.10986 28...
+3    MULTIPOLYGON (((80.34424 29.05416, 80.34449 29...
+4    MULTIPOLYGON (((80.44701 28.78921, 80.43608 28...
+Name: geometry, dtype: geometry
+Index([&#39;NAME&#39;, &#39;geometry&#39;], dtype=&#39;object&#39;)
+EPSG:4326
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Geometry</span> <span class="pre">Column</span></code>: Contains the spatial features (e.g., points, lines, polygons).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Attributes</span></code>: Columns other than the geometry represent non-spatial data (e.g., population, area).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CRS</span></code>: The Coordinate Reference System defines how the data is projected on the Earth’s surface.</p></li>
+</ul>
+</section>
+<section id="subsetting">
+<h2>Subsetting<a class="headerlink" href="#subsetting" title="Link to this heading">#</a></h2>
+<p>Subsetting involves selecting a subset of features based on specific conditions or attributes. You can subset vector data using boolean expressions on columns or spatial conditions.</p>
+<section id="subsetting-based-on-attribute">
+<h3>Subsetting Based on Attribute<a class="headerlink" href="#subsetting-based-on-attribute" title="Link to this heading">#</a></h3>
+<p>For example, let’s subset the data to select only features where the Name attribute is “Sreepur”.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Subset &quot;Sreepur&quot; data</span>
+<span class="n">sreepur_data</span> <span class="o">=</span> <span class="n">vector_data</span><span class="p">[</span><span class="n">vector_data</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Sreepur&#39;</span><span class="p">]</span>
+
+<span class="c1"># View the subset</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sreepur_data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># Plot the subsetted data</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">sreepur_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;NAME&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Sreepur VDC, Nepal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       NAME                                           geometry
+18  Sreepur  MULTIPOLYGON (((80.34809 28.73316, 80.3589 28....
+</pre></div>
+</div>
+<img alt="_images/b9046817b3326006797ff61ffb02b30d9d5635bd5a53a8446db7d8f5f5165b03.png" src="_images/b9046817b3326006797ff61ffb02b30d9d5635bd5a53a8446db7d8f5f5165b03.png" />
+</div>
+</div>
+</section>
+<section id="subsetting-based-on-spatial-location">
+<h3>Subsetting Based on Spatial Location<a class="headerlink" href="#subsetting-based-on-spatial-location" title="Link to this heading">#</a></h3>
+<p>You can also subset data based on spatial relationships, such as features that lie within a certain bounding box.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a bounding box (minx, miny, maxx, maxy)</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="p">(</span><span class="mf">80.3</span><span class="p">,</span> <span class="mf">28.6</span><span class="p">,</span> <span class="mf">80.4</span><span class="p">,</span> <span class="mf">28.7</span><span class="p">)</span>
+
+<span class="c1"># Subset data within the bounding box</span>
+<span class="n">bbox_data</span> <span class="o">=</span> <span class="n">vector_data</span><span class="o">.</span><span class="n">cx</span><span class="p">[</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]]</span>
+
+<span class="c1"># Plot the subsetted data</span>
+<span class="n">bbox_data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Subset within Bounding Box&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7c1bdeb98e007fea78f53ea9ae40b23837cbedadde299ef2ea60318b4feef583.png" src="_images/7c1bdeb98e007fea78f53ea9ae40b23837cbedadde299ef2ea60318b4feef583.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="spatial-transformations">
+<h2>Spatial Transformations<a class="headerlink" href="#spatial-transformations" title="Link to this heading">#</a></h2>
+<p>Spatial transformations modify the geometry of features. Common transformations include creating buffers and reprojecting the data to a new CRS.</p>
+<section id="reprojecting">
+<h3>Reprojecting<a class="headerlink" href="#reprojecting" title="Link to this heading">#</a></h3>
+<p>To reproject data into a new CRS, use the <code class="docutils literal notranslate"><span class="pre">.to_crs()</span></code> method. Since, the vector data we are using here in this tutorial lies in UTM zone 45N as per projected CRS, we will use the corresponding EPSG code i.e. 32645.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reproject to UTM 45N (EPSG:32645)</span>
+<span class="n">reprojected_data</span> <span class="o">=</span> <span class="n">sreepur_data</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">32645</span><span class="p">)</span>
+
+<span class="c1"># Check the new CRS</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">reprojected_data</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epsg:32645
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="buffering-features">
+<h3>Buffering features<a class="headerlink" href="#buffering-features" title="Link to this heading">#</a></h3>
+<p>The buffer operation creates a zone around a feature at a specified distance. It is often used for proximity analysis, such as determining areas within a certain distance of a road or river.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a 10-kilometers buffer around Sreepur</span>
+<span class="n">buffered_data</span> <span class="o">=</span> <span class="n">reprojected_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">buffered_data</span><span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reprojected_data</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+
+<span class="c1"># Plot the buffered data</span>
+<span class="n">buffered_data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="_images/225beecd2343a3e779ca9c1ef2c9cf16bd5dfd915f3ececb1c78d329881cd109.png" src="_images/225beecd2343a3e779ca9c1ef2c9cf16bd5dfd915f3ececb1c78d329881cd109.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="intersection">
+<h2>Intersection<a class="headerlink" href="#intersection" title="Link to this heading">#</a></h2>
+<p>The intersection operation allows you to find spatial relationships between two layers of vector data. This can be helpful for tasks like finding the overlap between two polygons, or identifying which features from one layer intersect with another.</p>
+<p>Here, we have two GeoDataFrames: one representing administrative boundaries and another representing protected areas. To find areas where protected areas and administrative boundaries overlap:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load protected areas GeoDataFrame</span>
+<span class="n">wdpa_data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;data/vector/protected_areas.gpkg&quot;</span><span class="p">)</span>
+
+<span class="c1"># Perform the intersection</span>
+<span class="n">intersection</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">overlay</span><span class="p">(</span><span class="n">sreepur_data</span><span class="p">,</span> <span class="n">wdpa_data</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;intersection&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot the intersection</span>
+<span class="n">intersection</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Intersection of Sreepur and Protected Areas&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># View the result</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">intersection</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="c1"># only view important columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/161d2ca268fa93bb16210582933e27bf0baa2e04be0c4a8e9389c1bf31a6e512.png" src="_images/161d2ca268fa93bb16210582933e27bf0baa2e04be0c4a8e9389c1bf31a6e512.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    NAME_1       WDPAID                     NAME_2
+0  Sreepur  555569941.0  Suklaphanta - Buffer Zone
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">:</span></code> selects all rows.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1,</span> <span class="pre">4]</span></code> selects the first, second and fifth columns (indexed starting at 0).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.head()</span></code> limits the output to the first few rows.</p></li>
+</ul>
+</section>
+<section id="area-computation">
+<h2>Area Computation<a class="headerlink" href="#area-computation" title="Link to this heading">#</a></h2>
+<p>One of the fundamental operations in geospatial analysis is calculating the area of features. This is particularly useful for tasks like land cover analysis, urban planning, or environmental studies.</p>
+<p>To compute the area of each feature in a GeoDataFrame, you can use the <code class="docutils literal notranslate"><span class="pre">.area</span></code> property. GeoPandas calculates the area of each feature in its native CRS. Here in this section, we will compute the area of Kanchanpur district.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ensure that the CRS is in a projected coordinate system (not WGS84)</span>
+<span class="c1"># This step is important for accurate area calculations</span>
+<span class="n">projected_data</span> <span class="o">=</span> <span class="n">vector_data</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">32645</span><span class="p">)</span>  <span class="c1"># UTM Zone 45N</span>
+
+<span class="c1"># Calculate area for each feature (in square meters)</span>
+<span class="n">projected_data</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">projected_data</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">area</span>
+
+<span class="c1"># Display the area of the first few features</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">projected_data</span><span class="p">[[</span><span class="s1">&#39;NAME&#39;</span><span class="p">,</span> <span class="s1">&#39;area&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           NAME          area
+0  BaisiBichawa  7.447664e+07
+1      Beldandi  2.490623e+07
+2      Chandani  3.251720e+07
+3        Daijee  1.028231e+08
+4   Dekhatbhuli  9.110952e+07
+</pre></div>
+</div>
+</div>
+</div>
+<p>Since, there are 21 VDCs in kanchanpur district, we got the area of each polygons. Let’s compute the total area of kanchanpur district using sum() function</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute the total area (sum of all feature areas)</span>
+<span class="n">total_area</span> <span class="o">=</span> <span class="n">projected_data</span><span class="p">[</span><span class="s1">&#39;area&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="c1"># Convert total area to square kilometers</span>
+<span class="n">total_area_sqkm</span> <span class="o">=</span> <span class="n">total_area</span> <span class="o">/</span> <span class="mi">1_000_000</span>
+
+<span class="c1"># Print the total area</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total Area: </span><span class="si">{</span><span class="n">total_area_sqkm</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> square kilometers&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total Area: 1633.44 square kilometers
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.sum()</span></code> method computes the total area by summing up the area column.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">:.2f</span></code> format ensures the total area is displayed with two decimal places.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="loading_geodata.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Loading Geospatial Data</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-and-inspecting">Loading and Inspecting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subsetting">Subsetting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subsetting-based-on-attribute">Subsetting Based on Attribute</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subsetting-based-on-spatial-location">Subsetting Based on Spatial Location</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-transformations">Spatial Transformations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reprojecting">Reprojecting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#buffering-features">Buffering features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intersection">Intersection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#area-computation">Area Computation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Om Prakash Bhandari
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
