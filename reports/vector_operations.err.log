@@ -17,30 +17,26 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-# Subset "Sreepur" data
-sreepur_data = vector_data[vector_data['NAME'] == 'Sreepur']
+# Reproject both geometries to a projected CRS (e.g., EPSG:3395 for meters)
+sreepur_data_projected = sreepur_data.to_crs(epsg=32645)
+tribhuwanbasti_projected = tribhuwan_data.to_crs(epsg=32645)
 
-# View the subset
-print(kanchanpur_data.head())
+# Compute the distance between the two polygons
+distance = sreepur_data_projected.geometry.distance(tribhuwan_data_projected.geometry.iloc[0]).min()
 
-# Plot the subsetted data
-import matplotlib.pyplot as plt
-
-sreepur_data.plot(column='NAME', cmap='viridis', legend=False)
-plt.title("Sreepur VDC, Nepal")
-plt.show()
-
+# Output the calculated distance
+print(f"Distance between Sreepur and Tribhuwanbasti is: {distance:.2f} meters")
 ------------------
 
 [1;31m---------------------------------------------------------------------------[0m
 [1;31mNameError[0m                                 Traceback (most recent call last)
-Input [1;32mIn [3][0m, in [0;36m<module>[1;34m[0m
-[0;32m      2[0m sreepur_data [38;5;241m=[39m vector_data[vector_data[[38;5;124m'[39m[38;5;124mNAME[39m[38;5;124m'[39m] [38;5;241m==[39m [38;5;124m'[39m[38;5;124mSreepur[39m[38;5;124m'[39m]
-[0;32m      4[0m [38;5;66;03m# View the subset[39;00m
-[1;32m----> 5[0m [38;5;28mprint[39m([43mkanchanpur_data[49m[38;5;241m.[39mhead())
-[0;32m      7[0m [38;5;66;03m# Plot the subsetted data[39;00m
-[0;32m      8[0m [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpyplot[39;00m [38;5;28;01mas[39;00m [38;5;21;01mplt[39;00m
+Input [1;32mIn [15][0m, in [0;36m<module>[1;34m[0m
+[0;32m      3[0m tribhuwanbasti_projected [38;5;241m=[39m tribhuwan_data[38;5;241m.[39mto_crs(epsg[38;5;241m=[39m[38;5;241m32645[39m)
+[0;32m      5[0m [38;5;66;03m# Compute the distance between the two polygons[39;00m
+[1;32m----> 6[0m distance [38;5;241m=[39m sreepur_data_projected[38;5;241m.[39mgeometry[38;5;241m.[39mdistance([43mtribhuwan_data_projected[49m[38;5;241m.[39mgeometry[38;5;241m.[39miloc[[38;5;241m0[39m])[38;5;241m.[39mmin()
+[0;32m      8[0m [38;5;66;03m# Output the calculated distance[39;00m
+[0;32m      9[0m [38;5;28mprint[39m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mDistance between Sreepur and Tribhuwanbasti is: [39m[38;5;132;01m{[39;00mdistance[38;5;132;01m:[39;00m[38;5;124m.2f[39m[38;5;132;01m}[39;00m[38;5;124m meters[39m[38;5;124m"[39m)
 
-[1;31mNameError[0m: name 'kanchanpur_data' is not defined
-NameError: name 'kanchanpur_data' is not defined
+[1;31mNameError[0m: name 'tribhuwan_data_projected' is not defined
+NameError: name 'tribhuwan_data_projected' is not defined
 
