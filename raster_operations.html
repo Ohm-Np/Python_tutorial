@@ -343,7 +343,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -359,6 +361,18 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">Plotting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clipping">Clipping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reclassification">Reclassification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-data-to-file">Saving Data to File</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-statistics">Zonal statistics</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -372,6 +386,359 @@
 <h1>Basic Raster Operations<a class="headerlink" href="#basic-raster-operations" title="Link to this heading">#</a></h1>
 <style> p { text-align: justify; } </style>
 <p>Raster data represents continuous spatial information such as elevation, temperature, or land cover. In Python, the <code class="docutils literal notranslate"><span class="pre">rasterio</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> libraries provide efficient tools for working with raster data, allowing users to visualize, analyze, and manipulate raster layers. Some common operations include plotting, reclassification, clipping, and masking, among others. These operations enable users to extract specific information and tailor raster datasets to their analysis needs.</p>
+<section id="plotting">
+<h2>Plotting<a class="headerlink" href="#plotting" title="Link to this heading">#</a></h2>
+<p>Visualizing raster data is an essential step in understanding its structure and distribution. Python provides tools to load and render raster layers intuitively, often with color palettes that reflect the range of values in the data. The example below demonstrates how to visualize raster data, such as ESA Land Cover data from 2015.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import required libraries</span>
+<span class="kn">import</span> <span class="nn">rasterio</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Load the raster data</span>
+<span class="n">raster_file</span> <span class="o">=</span> <span class="s2">&quot;data/raster/landcover_2015.tif&quot;</span>
+
+<span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">raster_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+    <span class="n">raster_data</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Read the first band (common for single-band rasters)</span>
+
+    <span class="c1"># Metadata about the raster</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Raster CRS: </span><span class="si">{</span><span class="n">src</span><span class="o">.</span><span class="n">crs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dimensions: </span><span class="si">{</span><span class="n">src</span><span class="o">.</span><span class="n">width</span><span class="si">}</span><span class="s2"> x </span><span class="si">{</span><span class="n">src</span><span class="o">.</span><span class="n">height</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bounds: </span><span class="si">{</span><span class="n">src</span><span class="o">.</span><span class="n">bounds</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data Type: </span><span class="si">{</span><span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Raster CRS: GEOGCS[&quot;WGS 84&quot;,DATUM[&quot;World Geodetic System 1984&quot;,SPHEROID[&quot;WGS 84&quot;,6378137,298.257223563]],PRIMEM[&quot;Greenwich&quot;,0],UNIT[&quot;degree&quot;,0.0174532925199433,AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],AXIS[&quot;Latitude&quot;,NORTH],AXIS[&quot;Longitude&quot;,EAST]]
+Dimensions: 505 x 590
+Bounds: BoundingBox(left=80.06051587301587, bottom=28.551587301587343, right=80.56150793650794, top=29.136904761904802)
+Data Type: uint32
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the raster using Matplotlib</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">raster_data</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Pixel Value&quot;</span><span class="p">)</span>  <span class="c1"># Add a colorbar to indicate pixel values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ESA Land Cover 2015&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Column Index&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Row Index&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9f4d5ab8e88f3925a9827b26c74d5348e3f386a2e8b2bf00272e3f3583c674b2.png" src="_images/9f4d5ab8e88f3925a9827b26c74d5348e3f386a2e8b2bf00272e3f3583c674b2.png" />
+</div>
+</div>
+<p>As seen in the plot above, the cell values range from 20 to over 120.</p>
+</section>
+<section id="clipping">
+<h2>Clipping<a class="headerlink" href="#clipping" title="Link to this heading">#</a></h2>
+<p>Clipping raster data allows you to extract a specific spatial region of interest from a larger raster dataset. This is particularly useful when working with large raster files where analysis is focused on a smaller area.</p>
+<p>Python provides tools for clipping raster data using libraries such as rasterio and shapely. Below is an example of how to clip raster data with a polygon.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rasterio.mask</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+
+<span class="c1"># Define file paths</span>
+<span class="n">raster_path</span> <span class="o">=</span> <span class="s2">&quot;data/raster/landcover_2015.tif&quot;</span>
+<span class="n">vector_path</span> <span class="o">=</span> <span class="s2">&quot;data/vector/sreepur.gpkg&quot;</span>
+
+<span class="c1"># Load the geopackage defining the clipping polygon</span>
+<span class="n">clip_polygon</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">vector_path</span><span class="p">)</span>
+
+<span class="c1"># Open the raster file</span>
+<span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">raster_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+
+    <span class="c1"># Convert the polygon to GeoJSON format and extract geometry</span>
+    <span class="n">clip_geometry</span> <span class="o">=</span> <span class="p">[</span><span class="n">geom</span><span class="o">.</span><span class="n">__geo_interface__</span> <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">clip_polygon</span><span class="o">.</span><span class="n">geometry</span><span class="p">]</span>
+
+    <span class="c1"># Clip the raster using rasterio.mask</span>
+    <span class="n">clipped_raster</span><span class="p">,</span> <span class="n">clipped_transform</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">mask</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">clip_geometry</span><span class="p">,</span> <span class="n">crop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">clipped_meta</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Update the metadata to reflect the new dimensions</span>
+<span class="n">clipped_meta</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s2">&quot;driver&quot;</span><span class="p">:</span> <span class="s2">&quot;GTiff&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="n">clipped_raster</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">clipped_raster</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+    <span class="s2">&quot;transform&quot;</span><span class="p">:</span> <span class="n">clipped_transform</span>
+<span class="p">})</span>
+
+<span class="c1"># Visualize the clipped raster</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">clipped_raster</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;viridis&quot;</span><span class="p">)</span>  <span class="c1"># Use the first band of the clipped raster</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Raster Values&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Clipped Raster&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Longitude&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Latitude&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/180a32bca46ab860058832bb0157b9cf4bfa9661bf1e3b96e424a4e2fee9baee.png" src="_images/180a32bca46ab860058832bb0157b9cf4bfa9661bf1e3b96e424a4e2fee9baee.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>The clipping polygon is converted to GeoJSON format <code class="docutils literal notranslate"><span class="pre">(__geo_interface__)</span></code>, which rasterio can use to define the clipping region.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rasterio.mask.mask()</span></code> is used to clip the raster. The crop=True argument ensures that only the extent of the polygon is retained.</p></li>
+</ul>
+</section>
+<section id="reclassification">
+<h2>Reclassification<a class="headerlink" href="#reclassification" title="Link to this heading">#</a></h2>
+<p>Reclassification is the process of modifying raster values based on a defined mapping. It is commonly used to group or reassign classes, such as land cover types, to simplify analysis or standardize data. For example, a raster of population count values can be reclassified into categories such as “Low,” “Medium,” and “High.” And a raster of Land cover values can be reclassified into their original land cover type categories.</p>
+<p>For our case, we are using WorldPop Population Count data from year 2020, which consists of continuous values. Before performing reclassification, it is important to inspect the raster values (minimum and maximum) present in the raster dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+
+<span class="n">raster_file</span> <span class="o">=</span> <span class="s2">&quot;data/raster/popCount_2020.tif&quot;</span>
+<span class="c1"># open the raster file</span>
+<span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">raster_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+
+    <span class="c1"># Read the raster data as a numpy array</span>
+    <span class="n">raster_data</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Single band raster</span>
+
+    <span class="c1"># Mask invalid or nodata values </span>
+    <span class="c1"># Define a custom condition for masking (e.g., mask zeros)</span>
+    <span class="n">masked_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_where</span><span class="p">((</span><span class="n">raster_data</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">raster_data</span><span class="p">),</span> <span class="n">raster_data</span><span class="p">)</span>
+
+    <span class="c1"># Calculate summary statistics</span>
+    <span class="n">min_value</span> <span class="o">=</span> <span class="n">masked_data</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">max_value</span> <span class="o">=</span> <span class="n">masked_data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">mean_value</span> <span class="o">=</span> <span class="n">masked_data</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">median_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">masked_data</span><span class="p">)</span>
+
+    <span class="c1"># Print the results</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Minimum value: </span><span class="si">{</span><span class="n">min_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Maximum value: </span><span class="si">{</span><span class="n">max_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean value: </span><span class="si">{</span><span class="n">mean_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Median value: </span><span class="si">{</span><span class="n">median_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Minimum value: 0.1460667997598648
+Maximum value: 136.91754150390625
+Mean value: 5.2824760935231385
+Median value: 2.4147253036499023
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create subplots (side by side)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># 1 row, 2 columns</span>
+
+<span class="c1"># Plot the raster data on the first axis</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">masked_data</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;viridis&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Population Count 2020&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
+<span class="c1"># Plot the histogram on the second axis</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">masked_data</span><span class="o">.</span><span class="n">compressed</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Histogram of Population Count&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Population Count&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frequency&quot;</span><span class="p">)</span>
+
+<span class="c1"># Adjust layout and display</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/64ab556eca3c0df4ad7d4e29a6f1d0597a7f75404bdb2a177820723856d58047.png" src="_images/64ab556eca3c0df4ad7d4e29a6f1d0597a7f75404bdb2a177820723856d58047.png" />
+</div>
+</div>
+<p>Since we have already inspected the raster values, here’s how we can classify the population count raster into multiple classes based on specific value ranges:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">mcolors</span>
+
+<span class="c1"># Define classification thresholds</span>
+<span class="k">def</span> <span class="nf">classify</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>        <span class="c1"># &quot;Very Low&quot;</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">2</span>        <span class="c1"># &quot;Low&quot;</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">3</span>        <span class="c1"># &quot;Medium&quot;</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">4</span>        <span class="c1"># &quot;High&quot;</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">5</span>        <span class="c1"># &quot;Very High&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">6</span>        <span class="c1"># &quot;Highly Dense&quot;</span>
+
+<span class="c1"># Open the raster file</span>
+<span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;data/raster/popCount_2020.tif&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+    <span class="n">raster_data</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Mask invalid or nodata values </span>
+    <span class="c1"># Define a custom condition for masking (e.g., mask zeros)</span>
+    <span class="n">masked_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_where</span><span class="p">((</span><span class="n">raster_data</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">raster_data</span><span class="p">),</span> <span class="n">raster_data</span><span class="p">)</span>
+
+    <span class="c1"># Classify the raster values</span>
+    <span class="n">classified_raster</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">classify</span><span class="p">)(</span><span class="n">masked_data</span><span class="o">.</span><span class="n">filled</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># Display the classified data counts</span>
+    <span class="n">unique</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">classified_raster</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Class Distribution:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">unique</span><span class="p">,</span> <span class="n">counts</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Class Distribution:
+1: 237889
+2: 120112
+3: 53108
+4: 7640
+5: 2604
+6: 549
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualize classified raster</span>
+<span class="c1"># Create a color map for classification</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">ListedColormap</span><span class="p">([</span><span class="s1">&#39;#f9f9f9&#39;</span><span class="p">,</span> <span class="s1">&#39;#e1f7d5&#39;</span><span class="p">,</span> <span class="s1">&#39;#d4f1a1&#39;</span><span class="p">,</span> <span class="s1">&#39;#e7d300&#39;</span><span class="p">,</span> <span class="s1">&#39;#ff6347&#39;</span><span class="p">,</span> <span class="s1">&#39;#8b0000&#39;</span><span class="p">])</span>
+<span class="n">bounds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">137</span><span class="p">]</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">BoundaryNorm</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">cmap</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>
+
+<span class="c1"># Create a figure and plot the classified raster</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">cax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">masked_data</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">)</span>
+
+<span class="c1"># Add colorbar with labels</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cax</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">115</span><span class="p">])</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Population Count&#39;</span><span class="p">)</span>
+
+<span class="c1"># Correctly align the tick labels with their respective colors</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">([</span><span class="s2">&quot;Very Low&quot;</span><span class="p">,</span> <span class="s2">&quot;Low&quot;</span><span class="p">,</span> <span class="s2">&quot;Medium&quot;</span><span class="p">,</span> <span class="s2">&quot;High&quot;</span><span class="p">,</span> <span class="s2">&quot;Very High&quot;</span><span class="p">,</span> <span class="s2">&quot;Highly Dense&quot;</span><span class="p">])</span>
+
+<span class="c1"># Add title</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Classified Population Count Raster&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/96fd8f62372700ddc37d68b55070bd2272d4c9c94ec9cd1122cbe7611583603b.png" src="_images/96fd8f62372700ddc37d68b55070bd2272d4c9c94ec9cd1122cbe7611583603b.png" />
+</div>
+</div>
+</section>
+<section id="saving-data-to-file">
+<h2>Saving Data to File<a class="headerlink" href="#saving-data-to-file" title="Link to this heading">#</a></h2>
+<p>We can use the <code class="docutils literal notranslate"><span class="pre">rasterio</span></code> to save raster data to a file.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Replace any classified value of -1 with the NoData value (e.g., -9999)</span>
+<span class="n">classified_raster</span><span class="p">[</span><span class="n">classified_raster</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">9999</span>  <span class="c1"># Use -9999 as a sentinel NoData value</span>
+
+<span class="c1"># Define the metadata for the new raster file (to save the classified data)</span>
+<span class="n">meta</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">meta</span>  <span class="c1"># Using the original raster&#39;s metadata</span>
+<span class="n">meta</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="s1">&#39;int32&#39;</span><span class="p">,</span>  <span class="c1"># The data type for the new classified raster</span>
+    <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># Single band in the output raster</span>
+    <span class="s1">&#39;nodata&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">9999</span> <span class="c1"># Set the NoData value for the output raster</span>
+<span class="p">})</span>
+
+<span class="c1"># Path to save the classified raster file</span>
+<span class="n">output_path</span> <span class="o">=</span> <span class="s2">&quot;data/raster/classified_population_raster.tif&quot;</span>
+
+<span class="c1"># Save the classified raster to a new file</span>
+<span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">meta</span><span class="p">)</span> <span class="k">as</span> <span class="n">dst</span><span class="p">:</span>
+    <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">classified_raster</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Write the classified raster data to the first band</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="zonal-statistics">
+<h2>Zonal statistics<a class="headerlink" href="#zonal-statistics" title="Link to this heading">#</a></h2>
+<p>Zonal statistics is a technique in spatial analysis used to summarize raster values within specified zones, defined by a vector dataset (e.g., polygons). This operation is essential for combining raster data (e.g., elevation, land cover) with vector zones (e.g., administrative boundaries, land parcels). Some of the common applications of zonal statistics are:</p>
+<ul class="simple">
+<li><p>Calculate average elevation within administrative regions.</p></li>
+<li><p>Sum rainfall or temperature within watershed boundaries.</p></li>
+<li><p>Count the number of pixels of a certain land cover type within specific zones.</p></li>
+<li><p>Determine the majority or range of raster values for each zone.</p></li>
+</ul>
+<p>To compute zonal statistics say for a given population count raster and a multipolygon geopackage file i.e. Kanchanpur district, you can use libraries like <code class="docutils literal notranslate"><span class="pre">rasterio</span></code>, <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, and <code class="docutils literal notranslate"><span class="pre">rasterstats</span></code> in Python. Here is a step-by-step guide to compute zonal statistics:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rasterstats</span> <span class="k">as</span> <span class="nn">rs</span>
+
+<span class="c1"># Load the vector data (Kanchanpur district)</span>
+<span class="n">vector_file</span> <span class="o">=</span> <span class="s2">&quot;data/vector/kanchanpur.gpkg&quot;</span>
+<span class="n">vector_data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">vector_file</span><span class="p">)</span>
+
+<span class="c1"># Load the raster data (population count raster)</span>
+<span class="n">raster_file</span> <span class="o">=</span> <span class="s2">&quot;data/raster/popCount_2020.tif&quot;</span>
+
+<span class="c1"># Use rasterstats to calculate zonal statistics - Calculate sum of raster values for each zone</span>
+<span class="n">zonal_stats</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="n">zonal_stats</span><span class="p">(</span><span class="n">vector_data</span><span class="p">,</span> <span class="n">raster_file</span><span class="p">,</span> <span class="n">stats</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sum&quot;</span><span class="p">])</span>
+
+<span class="c1"># Add the zonal statistics to the vector data</span>
+<span class="n">zonal_stats_df</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">vector_data</span><span class="p">)</span>
+<span class="n">zonal_stats_df</span><span class="p">[</span><span class="s2">&quot;Population&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">z</span><span class="p">[</span><span class="s2">&quot;sum&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">zonal_stats</span><span class="p">]</span>
+
+<span class="c1"># Print the total population</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">zonal_stats_df</span><span class="p">[[</span><span class="s1">&#39;NAME&#39;</span><span class="p">,</span> <span class="s1">&#39;Population&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           NAME    Population
+0  BaisiBichawa  37900.042969
+1      Beldandi  46565.355469
+2      Chandani  72813.015625
+3        Daijee  49223.929688
+4   Dekhatbhuli  52221.738281
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rasterstats</span></code> library can handle many statistics <code class="docutils literal notranslate"><span class="pre">(&quot;mean&quot;,</span> <span class="pre">&quot;min&quot;,</span> <span class="pre">&quot;max&quot;,</span> <span class="pre">&quot;std&quot;)</span></code>, so you can adjust the stats argument to compute any specific statistics you need.</p></li>
+</ul>
+<p>Lets create a barplot to analyze the population values within the zones.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a bar plot of total population for each polygon</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">zonal_stats_df</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">],</span> <span class="n">zonal_stats_df</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">)</span>
+
+<span class="c1"># Add labels and title</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Total Population&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Total Population per Village (Zonal Statistics)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>  <span class="c1"># Rotate the x-axis labels for better visibility</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># Adjust layout to prevent clipping</span>
+
+<span class="c1"># Show the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0add6e1921513ff2c19525b0611b87a1c7cce1f19a281ec9e1ccba3eb92dd16b.png" src="_images/0add6e1921513ff2c19525b0611b87a1c7cce1f19a281ec9e1ccba3eb92dd16b.png" />
+</div>
+</div>
+<p>From the barplot above, we can see that Laxmipur has the highest population, while Royal Shuklaphanta has the lowest population among all the VDCs in the Kanchanpur district.</p>
+<p><strong>For this tutorial, this concludes the coverage of raster data operations. If you would like to explore additional operations, examples, or need clarification on any of the steps covered, please visit the GitHub repository: <a class="reference external" href="https://github.com/Ohm-Np/Python_tutorial">Python_tutorial</a> and feel free to open an issue.</strong></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -419,6 +786,26 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">Plotting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clipping">Clipping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reclassification">Reclassification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-data-to-file">Saving Data to File</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zonal-statistics">Zonal statistics</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
