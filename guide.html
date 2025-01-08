@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Geospatial Analysis with Python &#8212; Geospatial Analysis with Python</title>
+    <title>Tutorial Guide &#8212; Geospatial Analysis with Python</title>
   
   
   
@@ -60,10 +60,11 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'guide';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Introduction" href="markdown.html" />
+    <link rel="next" title="Getting started" href="getting_started.html" />
+    <link rel="prev" title="Introduction" href="markdown.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -115,8 +116,6 @@
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -136,7 +135,7 @@
     
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="intro.html">
   
   
   
@@ -163,15 +162,15 @@
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
                     Geospatial Analysis with Python
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="markdown.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="guide.html">Tutorial Guide</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Tutorial Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="loading_geodata.html">Loading Geospatial Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vector_operations.html">Basic Vector Operations</a></li>
@@ -252,7 +251,7 @@
       
       
       
-      <li><a href="https://github.com/Ohm-Np/Python_tutorial/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/Ohm-Np/Python_tutorial/issues/new?title=Issue%20on%20page%20%2Fguide.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -282,7 +281,7 @@
       
       
       
-      <li><a href="_sources/intro.md" target="_blank"
+      <li><a href="_sources/guide.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -356,7 +355,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Geospatial Analysis with Python</h1>
+    <h1>Tutorial Guide</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -370,20 +369,24 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="geospatial-analysis-with-python">
-<h1>Geospatial Analysis with Python<a class="headerlink" href="#geospatial-analysis-with-python" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="tutorial-guide">
+<h1>Tutorial Guide<a class="headerlink" href="#tutorial-guide" title="Link to this heading">#</a></h1>
 <style> p { text-align: justify; } </style>
-<p>Welcome to this comprehensive guide on geospatial analysis with Python! This tutorial is designed to help you get acquainted with Python, a versatile and powerful programming language for spatial data analysis. You’ll learn how to work with both vector and raster data, perform essential geospatial operations, and create informative maps. Whether you’re just starting out or aiming to refine your geospatial skills, this resource will walk you through key techniques in data manipulation, visualization, and interactive mapping, giving you the skills you need to confidently work with spatial data in Python.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="markdown.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="guide.html">Tutorial Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="loading_geodata.html">Loading Geospatial Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="vector_operations.html">Basic Vector Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="raster_operations.html">Basic Raster Operations</a></li>
-</ul>
-</div>
+<p><strong>How to Use This Python Tutorial Effectively</strong></p>
+<p>This guide is designed to help you learn Python programming, with a focus on geospatial analysis, in a structured and interactive way. To get the most out of this tutorial, follow these tips:</p>
+<p><strong>1. Start from the Beginning:</strong>
+If you’re new to Python or programming in general, it’s recommended to start with the first chapter and work through each section in order. Each chapter builds on the previous one, so following the sequence will give you a solid foundation in Python programming and geospatial concepts.</p>
+<p><strong>2. Download the Data Files:</strong>
+You will need access to geospatial data files for many exercises in this tutorial. Download the datasets (available in GeoPackage for vector and GeoTIFF for raster formats) from the provided links in the next chapter under section named: <a class="reference external" href="https://ohm-np.github.io/Python_tutorial/getting_started.html#download-resources"><span style="color:red">Download Resources</span></a> to follow along with the examples. This will help you practice hands-on and understand how Python interacts with geospatial data.</p>
+<p><strong>3. Use the Code Examples:</strong>
+Each chapter includes Python code examples for you to run and experiment with. Copy the code into your own Python environment (like Visual Studio Code, Jupyter Notebooks, Google Colab, or your local IDE) and modify it to see how it works. Hands-on practice is the best way to learn.</p>
+<p><strong>4. Explore the Interactive Exercises:</strong>
+Some chapters include interactive challenges to test your understanding. Try to complete these exercises before checking the solutions. If you get stuck, refer back to the examples and explanations for guidance. These exercises are meant to help you reinforce the concepts and improve your coding skills.</p>
+<p><strong>5. Refer to the Links and Resources:</strong>
+Throughout the tutorial, I’ve included helpful links for additional reading or external resources. Don’t hesitate to follow these links if you need more information on specific topics or Python tools like <code class="docutils literal notranslate"><span class="pre">GeoPandas</span></code>, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, <code class="docutils literal notranslate"><span class="pre">rasterio</span></code>, etc. They’ll provide you with a deeper understanding of the topics.</p>
+<p><strong>6. Take Your Time:</strong>
+Learning programming takes practice, so don’t rush. Feel free to revisit previous sections, experiment with different commands, and take your time to master the concepts. This tutorial is meant to be a resource you can return to whenever needed. The more you practice, the better you’ll understand.</p>
+<p>By following these tips, you’ll be able to progress through the tutorial at your own pace, building a strong understanding of Python and its applications in geospatial analysis. Enjoy your learning journey with Python!</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -416,12 +419,21 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="right-next"
+    <a class="left-prev"
        href="markdown.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="getting_started.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Introduction</p>
+        <p class="prev-next-title">Getting started</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

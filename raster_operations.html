@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Geospatial Analysis with Python &#8212; Geospatial Analysis with Python</title>
+    <title>Basic Raster Operations &#8212; Geospatial Analysis with Python</title>
   
   
   
@@ -60,10 +60,10 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'raster_operations';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Introduction" href="markdown.html" />
+    <link rel="prev" title="Basic Vector Operations" href="vector_operations.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -115,8 +115,6 @@
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -136,7 +134,7 @@
     
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="intro.html">
   
   
   
@@ -163,19 +161,19 @@
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
                     Geospatial Analysis with Python
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="markdown.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="guide.html">Tutorial Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="loading_geodata.html">Loading Geospatial Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vector_operations.html">Basic Vector Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="raster_operations.html">Basic Raster Operations</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Basic Raster Operations</a></li>
 </ul>
 
     </div>
@@ -252,7 +250,7 @@
       
       
       
-      <li><a href="https://github.com/Ohm-Np/Python_tutorial/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/Ohm-Np/Python_tutorial/issues/new?title=Issue%20on%20page%20%2Fraster_operations.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -282,7 +280,7 @@
       
       
       
-      <li><a href="_sources/intro.md" target="_blank"
+      <li><a href="_sources/raster_operations.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -292,7 +290,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -356,7 +354,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Geospatial Analysis with Python</h1>
+    <h1>Basic Raster Operations</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -370,20 +368,10 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="geospatial-analysis-with-python">
-<h1>Geospatial Analysis with Python<a class="headerlink" href="#geospatial-analysis-with-python" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="basic-raster-operations">
+<h1>Basic Raster Operations<a class="headerlink" href="#basic-raster-operations" title="Link to this heading">#</a></h1>
 <style> p { text-align: justify; } </style>
-<p>Welcome to this comprehensive guide on geospatial analysis with Python! This tutorial is designed to help you get acquainted with Python, a versatile and powerful programming language for spatial data analysis. You’ll learn how to work with both vector and raster data, perform essential geospatial operations, and create informative maps. Whether you’re just starting out or aiming to refine your geospatial skills, this resource will walk you through key techniques in data manipulation, visualization, and interactive mapping, giving you the skills you need to confidently work with spatial data in Python.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="markdown.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="guide.html">Tutorial Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="loading_geodata.html">Loading Geospatial Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="vector_operations.html">Basic Vector Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="raster_operations.html">Basic Raster Operations</a></li>
-</ul>
-</div>
+<p>Raster data represents continuous spatial information such as elevation, temperature, or land cover. In Python, the <code class="docutils literal notranslate"><span class="pre">rasterio</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> libraries provide efficient tools for working with raster data, allowing users to visualize, analyze, and manipulate raster layers. Some common operations include plotting, reclassification, clipping, and masking, among others. These operations enable users to extract specific information and tailor raster datasets to their analysis needs.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -416,14 +404,14 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="right-next"
-       href="markdown.html"
-       title="next page">
+    <a class="left-prev"
+       href="vector_operations.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Introduction</p>
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Basic Vector Operations</p>
       </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
