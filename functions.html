@@ -1,0 +1,965 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Functions in Python &#8212; Geospatial Analysis with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'functions';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Basic Raster Operations" href="raster_operations.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Geospatial Analysis with Python - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Geospatial Analysis with Python - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Geospatial Analysis with Python
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">Tutorial Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loading_geodata.html">Loading Geospatial Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_operations.html">Basic Vector Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_operations.html">Basic Raster Operations</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Functions in Python</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Ohm-Np/Python_tutorial" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Ohm-Np/Python_tutorial/issues/new?title=Issue%20on%20page%20%2Ffunctions.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/functions.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Functions in Python</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-and-calling-functions">Defining and Calling Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-with-parameters">Functions with Parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-with-return-values">Functions with Return Values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-geospatial-data">Downloading Geospatial Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automating-data-download">Automating Data Download</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-one-file-at-a-time">Download one file at a time</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-multiple-files-simultaneously">Download multiple files simultaneously</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computation-functions">Computation Functions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="functions-in-python">
+<h1>Functions in Python<a class="headerlink" href="#functions-in-python" title="Link to this heading">#</a></h1>
+<style> p { text-align: justify; } </style>
+<p>Functions are a fundamental building block in Python programming, allowing you to organize your code into reusable, logical blocks. Whether you’re writing simple scripts or complex applications, functions help make your code cleaner, more modular, and easier to maintain. Once a function is defined, you can call it whenever you need it, avoiding repetitive code. Functions can accept inputs (parameters), perform operations, and return outputs.</p>
+<p>By using functions, we can:</p>
+<ul class="simple">
+<li><p>Avoid repetitive code</p></li>
+<li><p>Break complex tasks into smaller, manageable pieces</p></li>
+<li><p>Improve readability and maintainability of your code</p></li>
+</ul>
+<section id="defining-and-calling-functions">
+<h2>Defining and Calling Functions<a class="headerlink" href="#defining-and-calling-functions" title="Link to this heading">#</a></h2>
+<p>In Python, you define a function using the <code class="docutils literal notranslate"><span class="pre">def</span></code> keyword followed by the function name and parentheses <code class="docutils literal notranslate"><span class="pre">(</span> <span class="pre">)</span></code>. Inside the parentheses, you can define optional parameters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">greet</span><span class="p">():</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This is a simple function that prints a greeting.&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello, welcome to the Geospatial Analysis in Python!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To execute the code inside a function, you simply call it by its name followed by parentheses.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Call the function</span>
+<span class="n">greet</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello, welcome to the Geospatial Analysis in Python!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="functions-with-parameters">
+<h2>Functions with Parameters<a class="headerlink" href="#functions-with-parameters" title="Link to this heading">#</a></h2>
+<p>Functions can accept inputs called parameters. Parameters allow you to pass data to the function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">greet_user</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This function greets the user by their name.&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hello, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">! Welcome to the Geospatial Analysis in Python!&quot;</span><span class="p">)</span>
+    
+<span class="c1"># Call the function with an argument</span>
+<span class="n">greet_user</span><span class="p">(</span><span class="s2">&quot;Modric&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello, Modric! Welcome to the Geospatial Analysis in Python!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="functions-with-return-values">
+<h2>Functions with Return Values<a class="headerlink" href="#functions-with-return-values" title="Link to this heading">#</a></h2>
+<p>Sometimes, you want a function to compute and return a result.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_numbers</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This function returns the sum of two numbers.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="c1"># Call the function and store the result</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">add_numbers</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The sum is: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The sum is: 13
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Default Parameters</strong></p>
+<p>You can set default values for parameters. If no value is provided when calling the function, the default is used.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Guest&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This function greets the user, with a default name of &#39;Guest&#39;.&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hello, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
+
+<span class="c1"># Call with and without an argument</span>
+<span class="n">greet</span><span class="p">(</span><span class="s2">&quot;Luka&quot;</span><span class="p">)</span>
+<span class="n">greet</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello, Luka!
+Hello, Guest!
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Keyword Arguments</strong></p>
+<p>Python allows you to call functions using keyword arguments, which makes your code more readable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">favorite_IDE</span><span class="p">(</span><span class="n">programming</span><span class="p">,</span> <span class="n">IDE</span><span class="o">=</span><span class="s2">&quot;RStudio&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This function describes your favorite programming language and IDE.&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;I love </span><span class="si">{</span><span class="n">programming</span><span class="si">}</span><span class="s2"> and enjoy scripting with </span><span class="si">{</span><span class="n">IDE</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Call with positional and keyword arguments</span>
+<span class="n">favorite_IDE</span><span class="p">(</span><span class="s2">&quot;R&quot;</span><span class="p">)</span>
+<span class="n">favorite_IDE</span><span class="p">(</span><span class="n">programming</span><span class="o">=</span><span class="s2">&quot;Python&quot;</span><span class="p">,</span> <span class="n">IDE</span><span class="o">=</span><span class="s2">&quot;VS Code&quot;</span><span class="p">)</span>
+<span class="n">favorite_IDE</span><span class="p">(</span><span class="n">programming</span><span class="o">=</span><span class="s2">&quot;JavaScript&quot;</span><span class="p">,</span> <span class="n">IDE</span><span class="o">=</span><span class="s2">&quot;Jupyter Notebook&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>I love R and enjoy scripting with RStudio.
+I love Python and enjoy scripting with VS Code.
+I love JavaScript and enjoy scripting with Jupyter Notebook.
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Variables</strong></p>
+<p>Variables defined inside a function are local to that function and cannot be accessed outside it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">demo_function</span><span class="p">():</span>
+    <span class="n">local_var</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># This variable exists only inside the function</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Inside function: </span><span class="si">{</span><span class="n">local_var</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">demo_function</span><span class="p">()</span>
+<span class="c1"># print(local_var)  # This will raise an error because local_var is not defined outside</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Inside function: 10
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Anonymous Functions</strong></p>
+<p>Anonymous Functions also referred to as Lambda functions are one-liner functions defined using the <code class="docutils literal notranslate"><span class="pre">lambda</span></code> keyword. They are often used for short, simple operations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A simple lambda function to multiply two numbers</span>
+<span class="n">multiply</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">multiply</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">19</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>228
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="downloading-geospatial-data">
+<h2>Downloading Geospatial Data<a class="headerlink" href="#downloading-geospatial-data" title="Link to this heading">#</a></h2>
+<p>Downloading geospatial data is a common step in geospatial analysis workflows. Python provides efficient libraries such as <code class="docutils literal notranslate"><span class="pre">requests</span></code> for downloading files from the web, enabling users to automate data acquisition. For instance, you can fetch GeoPackage or GeoTIFF files from online repositories like GADM or ESA. Once downloaded, these datasets can be used for various spatial analyses and visualizations. By writing a script to handle downloads, you ensure consistency, reproducibility, and quick access to the required data. Python’s flexibility also allows users to integrate data downloading with preprocessing workflows for seamless geospatial project management.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="c1"># URL of the GADM data of San Marino</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://geodata.ucdavis.edu/gadm/gadm4.1/gpkg/gadm41_SMR.gpkg&quot;</span>
+
+<span class="c1"># Destination path to save the file</span>
+<span class="n">destfile</span> <span class="o">=</span> <span class="s2">&quot;data/downloads/gadm41_SMR.gpkg&quot;</span>
+
+<span class="c1"># Download the file</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c1"># Check if the request was successful</span>
+<span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+    <span class="c1"># Write the content to a file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">destfile</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File downloaded successfully and saved to </span><span class="si">{</span><span class="n">destfile</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to download file. Status code: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>File downloaded successfully and saved to data/downloads/gadm41_SMR.gpkg
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="automating-data-download">
+<h2>Automating Data Download<a class="headerlink" href="#automating-data-download" title="Link to this heading">#</a></h2>
+<p>To simplify the process, we can wrap this functionality into a custom function that takes a URL and destination path as arguments. This can be particularly useful when managing multiple datasets.</p>
+<section id="download-one-file-at-a-time">
+<h3>Download one file at a time<a class="headerlink" href="#download-one-file-at-a-time" title="Link to this heading">#</a></h3>
+<p>In this subsection, we will create a function to download country-specific GeoPackage data from the GADM website.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">get_gadm</span><span class="p">(</span><span class="n">iso3</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">iso3</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Both &#39;iso3&#39; and &#39;path&#39; parameters must be provided.&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Construct the URL of the GADM data</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://geodata.ucdavis.edu/gadm/gadm4.1/gpkg/gadm41_</span><span class="si">{</span><span class="n">iso3</span><span class="si">}</span><span class="s2">.gpkg&quot;</span>
+
+    <span class="c1"># Destination path to save the file</span>
+    <span class="n">destfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">iso3</span><span class="si">}</span><span class="s2">.gpkg&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Download the file</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">destfile</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Download process completed successfully.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to download file. HTTP status code: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">iso3</span></code>: str, ISO3 country code (e.g., “SMR” for San Marino).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: str, Directory path where the file will be saved.</p></li>
+</ul>
+<p>Returns:</p>
+<ul class="simple">
+<li><p>None, but saves the downloaded file to the specified location.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 1: Luxembourg</span>
+<span class="n">iso3</span> <span class="o">=</span> <span class="s2">&quot;LUX&quot;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;data/downloads/&quot;</span>
+<span class="n">get_gadm</span><span class="p">(</span><span class="n">iso3</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download process completed successfully.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 2: Cyprus</span>
+<span class="n">get_gadm</span><span class="p">(</span><span class="n">iso3</span> <span class="o">=</span> <span class="s2">&quot;CYP&quot;</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;data/downloads/&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Download process completed successfully.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="download-multiple-files-simultaneously">
+<h3>Download multiple files simultaneously<a class="headerlink" href="#download-multiple-files-simultaneously" title="Link to this heading">#</a></h3>
+<p>In this subsection, we will create a function to download GADM data for multiple countries simultaneously.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gadm_downloader</span><span class="p">(</span><span class="n">iso3_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">iso3_list</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Both &#39;iso3_list&#39; and &#39;path&#39; parameters must be provided.&quot;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">iso3</span> <span class="ow">in</span> <span class="n">iso3_list</span><span class="p">:</span>
+        <span class="c1"># Construct the URL</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://geodata.ucdavis.edu/gadm/gadm4.1/gpkg/gadm41_</span><span class="si">{</span><span class="n">iso3</span><span class="si">}</span><span class="s2">.gpkg&quot;</span>
+
+        <span class="c1"># Destination path to save the file</span>
+        <span class="n">destfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">iso3</span><span class="si">}</span><span class="s2">.gpkg&quot;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Downloading GADM data for country: </span><span class="si">{</span><span class="n">iso3</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Download the file</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+            <span class="c1"># Check if the download was successful</span>
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">destfile</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File for </span><span class="si">{</span><span class="n">iso3</span><span class="si">}</span><span class="s2"> downloaded successfully.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to download file for </span><span class="si">{</span><span class="n">iso3</span><span class="si">}</span><span class="s2">. HTTP status code: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An error occurred while downloading file for </span><span class="si">{</span><span class="n">iso3</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Download process completed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Key features:</p>
+<ul class="simple">
+<li><p>Looping through ISO3 codes</p></li>
+<li><p>Error Handling with <code class="docutils literal notranslate"><span class="pre">try-except</span></code></p></li>
+<li><p>Dynamic File Naming</p></li>
+<li><p>Feedback messages</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example 3: Cyprus, San Marino, Luxembourg</span>
+
+<span class="n">gadm_downloader</span><span class="p">(</span><span class="n">iso3_list</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;LUX&quot;</span><span class="p">,</span> <span class="s2">&quot;SMR&quot;</span><span class="p">,</span> <span class="s2">&quot;CYP&quot;</span><span class="p">],</span>
+                <span class="n">path</span><span class="o">=</span><span class="s2">&quot;data/downloads&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading GADM data for country: LUX...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>File for LUX downloaded successfully.
+Downloading GADM data for country: SMR...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>File for SMR downloaded successfully.
+Downloading GADM data for country: CYP...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>File for CYP downloaded successfully.
+Download process completed.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Advantages of Automating Downloads:</p>
+<ul class="simple">
+<li><p><strong>Efficiency</strong>: Automates the tedious process of manually downloading files.</p></li>
+<li><p><strong>Reproducibility</strong>: Ensures that analyses can be reproduced with the same datasets.</p></li>
+<li><p><strong>Scalability</strong>: Handles multiple datasets with ease, particularly useful in batch processing.</p></li>
+</ul>
+<p>By leveraging these techniques, we can integrate data acquisition seamlessly into our Python scripts, ensuring an efficient and organized workflow for geospatial projects.</p>
+</section>
+</section>
+<section id="computation-functions">
+<h2>Computation Functions<a class="headerlink" href="#computation-functions" title="Link to this heading">#</a></h2>
+<p>In this section, we will create a function that computes zonal statistics based on the provided Area of Interest (AOI) and raster data. The <code class="docutils literal notranslate"><span class="pre">compute_zonal_statistics</span></code> function calculates zonal statistics for a given raster (spatial dataset) within a defined Area of Interest (AOI).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">rasterio</span>
+<span class="kn">import</span> <span class="nn">rasterstats</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="k">def</span> <span class="nf">compute_zonal_statistics</span><span class="p">(</span><span class="n">aoi_path</span><span class="p">,</span> <span class="n">raster_path</span><span class="p">,</span> <span class="n">stats</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">]):</span>
+
+    <span class="c1"># Load the AOI polygons</span>
+    <span class="n">aoi</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">aoi_path</span><span class="p">)</span>
+
+    <span class="c1"># Open the raster file</span>
+    <span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">raster_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+
+        <span class="c1"># Compute zonal statistics using rasterstats</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">zonal_stats</span> <span class="o">=</span> <span class="n">rasterstats</span><span class="o">.</span><span class="n">zonal_stats</span><span class="p">(</span>
+                <span class="n">aoi</span><span class="p">,</span>
+                <span class="n">raster_path</span><span class="p">,</span>
+                <span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">,</span>
+                <span class="n">geojson_out</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">nodata</span><span class="o">=</span><span class="kc">None</span>   <span class="c1"># you can set nodata value here if needed</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error during zonal statistics calculation: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Convert the results to a GeoDataFrame</span>
+        <span class="n">results_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="o">.</span><span class="n">from_features</span><span class="p">(</span><span class="n">zonal_stats</span><span class="p">)</span>
+
+        <span class="c1"># Return only the AOI attributes and statistics as a DataFrame</span>
+        <span class="n">stats_column</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">results_gdf</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">stats</span><span class="p">]</span>
+        <span class="n">output_df</span> <span class="o">=</span> <span class="n">results_gdf</span><span class="p">[</span><span class="n">aoi</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="n">stats_column</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">output_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">aoi_path</span></code>: str, Path to the shapefile or GeoPackage containing the AOI polygons.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">raster_path</span></code>: str, Path to the raster file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stats</span></code>: list of str, Statistics to calculate (e.g., [“mean”, “sum”, “min”, “max”]).</p></li>
+</ul>
+<p>Returns:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing the AOI attributes and computed statistics.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example usage:</span>
+
+<span class="n">aoi_path</span> <span class="o">=</span> <span class="s2">&quot;data/vector/kanchanpur.gpkg&quot;</span>
+<span class="n">raster_path</span> <span class="o">=</span> <span class="s2">&quot;data/raster/popCount_2020.tif&quot;</span>
+
+<span class="n">zonal_stats_df</span> <span class="o">=</span> <span class="n">compute_zonal_statistics</span><span class="p">(</span><span class="n">aoi_path</span><span class="p">,</span> <span class="n">raster_path</span><span class="p">,</span> <span class="n">stats</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">zonal_stats_df</span><span class="p">[[</span><span class="s2">&quot;NAME&quot;</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  NAME            sum       mean
+0         BaisiBichawa   37900.042969   3.872093
+1             Beldandi   46565.355469  14.149303
+2             Chandani   72813.015625  17.694536
+3               Daijee   49223.929688   3.624737
+4          Dekhatbhuli   52221.738281   4.353989
+5              Dodhara   64436.566406  20.553929
+6              Jhalari   40823.878906   2.517972
+7               Kalika   97216.468750  28.830507
+8           Krishnapur   36368.550781   1.653792
+9             Laxmipur  277108.937500  72.295575
+10   MahendranagarN.P.   51835.031250   2.278062
+11             Parasan   38199.867188   7.639973
+12            Pipaladi   46773.808594   8.258088
+13     RaikawarBichawa   44571.746094   4.150456
+14      RampurBilaspur   48838.773438   9.415611
+15      RauteliBichawa   11581.357422   2.904052
+16  Royal Shuklaphanta     131.641449   0.002766
+17          Shankarpur   19211.746094   4.094575
+18             Sreepur   56755.710938   7.707185
+19                Suda   58257.640625   7.586618
+20      Tribhuwanbasti   37573.945312  14.512918
+</pre></div>
+</div>
+</div>
+</div>
+<p>Key Features:</p>
+<ul class="simple">
+<li><p>Flexible Statistics</p></li>
+<li><p>Nodata Handling</p></li>
+<li><p>Output Format</p></li>
+<li><p>Error Handling</p></li>
+</ul>
+<p>This function is scalable for multiple AOIs and different raster datasets.</p>
+<p>In conclusion, mastering functions in Python is essential for writing efficient, reusable, and organized code. Functions enable you to simplify complex tasks, eliminate redundancy, and improve the readability and maintainability of your scripts. By understanding how to define and use functions, you can perform a wide range of data manipulation, statistical analysis, and visualization tasks more effectively. With the ability to build custom functions and utilize Python’s extensive library of built-in functions, you can significantly enhance your data analysis workflow, making your code more modular and adaptable to various challenges. Functions are a powerful tool that, once mastered, will elevate your Python programming skills to the next level.</p>
+<p><strong>For this tutorial, this concludes the coverage of functions in Python. If you would like to explore additional functions, examples, or need clarification on any of the steps covered, please visit the GitHub repository: <a class="reference external" href="https://github.com/Ohm-Np/Python_tutorial">Python_tutorial</a> and feel free to open an issue.</strong></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="raster_operations.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Basic Raster Operations</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-and-calling-functions">Defining and Calling Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-with-parameters">Functions with Parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-with-return-values">Functions with Return Values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-geospatial-data">Downloading Geospatial Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automating-data-download">Automating Data Download</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-one-file-at-a-time">Download one file at a time</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-multiple-files-simultaneously">Download multiple files simultaneously</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computation-functions">Computation Functions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Om Prakash Bhandari
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
