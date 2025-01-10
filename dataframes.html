@@ -1,0 +1,1174 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Frames in Python &#8212; Geospatial Analysis with Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'dataframes';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Functions in Python" href="functions.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Geospatial Analysis with Python - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Geospatial Analysis with Python - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Geospatial Analysis with Python
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">Tutorial Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loading_geodata.html">Loading Geospatial Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_operations.html">Basic Vector Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raster_operations.html">Basic Raster Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions in Python</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Frames in Python</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Ohm-Np/Python_tutorial" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Ohm-Np/Python_tutorial/issues/new?title=Issue%20on%20page%20%2Fdataframes.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/dataframes.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data Frames in Python</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-data-frames">Creating Data Frames</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-and-modifying-data">Accessing and Modifying Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-frame-operations">Data Frame Operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geospatial-data-frames">Geospatial Data Frames</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-gdf">Creating GDF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manipulating-gdf">Manipulating GDF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-of-gdf">Visualization of GDF</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polygon-geodataframe">Polygon GeoDataFrame</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structure">Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-new-columns">Adding New Columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arithmetic-computation">Arithmetic Computation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-and-filtering">Selecting and Filtering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grouping-and-summarizing">Grouping and Summarizing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pivoting-and-reshaping">Pivoting and Reshaping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">Visualization</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-frames-in-python">
+<h1>Data Frames in Python<a class="headerlink" href="#data-frames-in-python" title="Link to this heading">#</a></h1>
+<style> p { text-align: justify; } </style>
+<p>A data frame is a two-dimensional, size-mutable, and heterogeneous data structure. Think of it as a table or spreadsheet where rows represent records and columns represent variables or attributes. In Python, the <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> class is used to represent data frames.</p>
+<p>Key characteristics of data frames:</p>
+<ul class="simple">
+<li><p>Columns can contain different data types (e.g., numeric, character, factor).</p></li>
+<li><p>Rows represent individual observations or cases.</p></li>
+<li><p>Data frames can hold large datasets efficiently.</p></li>
+</ul>
+<section id="creating-data-frames">
+<h2>Creating Data Frames<a class="headerlink" href="#creating-data-frames" title="Link to this heading">#</a></h2>
+<p>A data frame can be created from various data types:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Creating a data from a dictionary</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Amrit&quot;</span><span class="p">,</span> <span class="s2">&quot;Ishwor&quot;</span><span class="p">,</span> <span class="s2">&quot;Indra&quot;</span><span class="p">,</span> <span class="s2">&quot;Rakshya&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;Age&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">27</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span>
+    <span class="s2">&quot;Grade&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;Major&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Maths&quot;</span><span class="p">,</span> <span class="s2">&quot;Science&quot;</span><span class="p">,</span> <span class="s2">&quot;Maths&quot;</span><span class="p">,</span> <span class="s2">&quot;Science&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Display the data frame</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Name  Age Grade    Major
+0    Amrit   27     A    Maths
+1   Ishwor   24     B  Science
+2    Indra   21     A    Maths
+3  Rakshya   25     B  Science
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="accessing-and-modifying-data">
+<h2>Accessing and Modifying Data<a class="headerlink" href="#accessing-and-modifying-data" title="Link to this heading">#</a></h2>
+<p><strong>Selecting Rows and Columns</strong></p>
+<p>We can access elements of a data frame using indexing, column names, or logical conditions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Access a column</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0      Amrit
+1     Ishwor
+2      Indra
+3    Rakshya
+Name: Name, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Access a row by index</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Name     Amrit
+Age         27
+Grade        A
+Major    Maths
+Name: 0, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Access a specific value</span>
+<span class="n">value</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Name&quot;</span><span class="p">]</span>  <span class="c1"># Using label-based indexing</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Indra
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using position-based indexing</span>
+<span class="n">value</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  
+<span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Indra
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Adding and Removing Columns</strong></p>
+<p>We can add a new column to a data frame dynamically or remove an existing column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add a column &#39;Pass&#39; where students with Grade &#39;A&#39; are True</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Pass&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Grade&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;A&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Name  Age Grade    Major   Pass
+0    Amrit   27     A    Maths   True
+1   Ishwor   24     B  Science  False
+2    Indra   21     A    Maths   True
+3  Rakshya   25     B  Science  False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove the &#39;Grade&#39; column</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Grade&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Name  Age    Major   Pass
+0    Amrit   27    Maths   True
+1   Ishwor   24  Science  False
+2    Indra   21    Maths   True
+3  Rakshya   25  Science  False
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-frame-operations">
+<h2>Data Frame Operations<a class="headerlink" href="#data-frame-operations" title="Link to this heading">#</a></h2>
+<p><strong>Filtering and Subsetting</strong></p>
+<p>We can filter rows based on conditions using logical operators.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter rows where Age &gt; 22</span>
+<span class="n">filtered_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">22</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">filtered_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Name  Age    Major   Pass
+0    Amrit   27    Maths   True
+1   Ishwor   24  Science  False
+3  Rakshya   25  Science  False
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Sorting and Reordering</strong></p>
+<p>Sorting a data frame is straightforward with the <code class="docutils literal notranslate"><span class="pre">sort_values()</span></code> method.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sort by the &#39;Age&#39; column in ascending order</span>
+<span class="n">df_sorted</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_sorted</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Name  Age    Major   Pass
+2    Indra   21    Maths   True
+1   Ishwor   24  Science  False
+3  Rakshya   25  Science  False
+0    Amrit   27    Maths   True
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Summary and Statistical Functions</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">.describe()</span></code> method in pandas provides a summary of each column in a DataFrame. Here’s how:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Summary of the DataFrame (Descriptive statistics)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         Age
+count   4.00
+mean   24.25
+std     2.50
+min    21.00
+25%    23.25
+50%    24.50
+75%    25.50
+max    27.00
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get number of rows and columns</span>
+<span class="n">num_rows</span><span class="p">,</span> <span class="n">num_cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of rows: </span><span class="si">{</span><span class="n">num_rows</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of columns: </span><span class="si">{</span><span class="n">num_cols</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of rows: 4
+Number of columns: 4
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Aggregation and Grouping</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">groupby</span></code> method in pandas along with aggregation functions enable aggregation and grouping.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Group by &#39;Major&#39; and calculate the average age</span>
+<span class="n">grouped_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Major&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">Average_Age</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">grouped_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     Major  Average_Age
+0    Maths         24.0
+1  Science         24.5
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">groupby</span></code> groups the data frame by the ‘Major’ column</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">agg</span></code> applies the mean function to the ‘Age’ column and renames the result to ‘Average_Age’</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reset_index()</span></code> resets the index so the grouped column “Major” becomes a regular column in the resulting data frame.</p></li>
+</ul>
+<p>So far, this chapter has introduced you to the versatility and power of data frames in Python, laying the foundation for data manipulation and analysis. Now, we will delve into data frames specifically designed for geospatial data.</p>
+</section>
+<section id="geospatial-data-frames">
+<h2>Geospatial Data Frames<a class="headerlink" href="#geospatial-data-frames" title="Link to this heading">#</a></h2>
+<p>A Geospatial Data Frame (GeoDataFrame) extends a standard data frame by incorporating a geometry column that holds spatial data, such as points, lines, and polygons. This combination of spatial and attribute data makes geospatial data frames particularly useful for spatial analysis and mapping.</p>
+<p>In Python, the <code class="docutils literal notranslate"><span class="pre">GeoPandas</span></code> library is often used to handle geospatial data frames, providing easy-to-use structures for working with vector data and offering compatibility with other libraries for geospatial and statistical analysis.</p>
+<p>The geometry is a key component of geospatial data frames, defining the spatial features for each observation. Each row represents a spatial feature linked to its attributes, and the geometry column typically stores spatial data in formats such as GeoJSON, WKT (Well-Known Text), or binary formats like WKB (Well-Known Binary).</p>
+<section id="creating-gdf">
+<h3>Creating GDF<a class="headerlink" href="#creating-gdf" title="Link to this heading">#</a></h3>
+<p>You can create a geospatial data frame using <code class="docutils literal notranslate"><span class="pre">GeoPandas</span></code>. Here’s an example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
+
+<span class="c1"># Create a data frame with spatial data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Point A&quot;</span><span class="p">,</span> <span class="s2">&quot;Point B&quot;</span><span class="p">,</span> <span class="s2">&quot;Point C&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;Latitude&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">27.7</span><span class="p">,</span> <span class="mf">28.2</span><span class="p">,</span> <span class="mf">26.9</span><span class="p">],</span>
+    <span class="s2">&quot;Longitude&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">85.3</span><span class="p">,</span> <span class="mf">84.9</span><span class="p">,</span> <span class="mf">83.8</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Convert to a GeoDataFrame</span>
+<span class="n">geometry</span> <span class="o">=</span> <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="n">xy</span><span class="p">)</span> <span class="k">for</span> <span class="n">xy</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Longitude&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Latitude&quot;</span><span class="p">])]</span>
+<span class="n">geo_data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">geometry</span><span class="p">)</span>
+
+<span class="c1"># Set the coordinate reference system (CRS) to WGS 84</span>
+<span class="n">geo_data</span><span class="o">.</span><span class="n">set_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">4326</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Print the GeoDataFrame</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">geo_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Name  Latitude  Longitude           geometry
+0  Point A      27.7       85.3  POINT (85.3 27.7)
+1  Point B      28.2       84.9  POINT (84.9 28.2)
+2  Point C      26.9       83.8  POINT (83.8 26.9)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="manipulating-gdf">
+<h3>Manipulating GDF<a class="headerlink" href="#manipulating-gdf" title="Link to this heading">#</a></h3>
+<p><strong>Spatial Queries</strong></p>
+<p>Geospatial data frames support operations like spatial filtering and proximity analysis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">box</span>
+
+<span class="c1"># Define a bounding box and convert it to a geometry object</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">86</span><span class="p">,</span> <span class="mi">29</span><span class="p">)</span>  <span class="c1"># xmin, ymin, xmax, ymax</span>
+<span class="n">bbox_polygon</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">([</span><span class="n">bbox</span><span class="p">],</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">)</span>
+
+<span class="c1"># Filter points within the bounding box</span>
+<span class="n">filtered_data</span> <span class="o">=</span> <span class="n">geo_data</span><span class="p">[</span><span class="n">geo_data</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">within</span><span class="p">(</span><span class="n">bbox_polygon</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+
+<span class="c1"># Print filtered data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">filtered_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Name  Latitude  Longitude           geometry
+0  Point A      27.7       85.3  POINT (85.3 27.7)
+1  Point B      28.2       84.9  POINT (84.9 28.2)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Attribute-Based Operations</strong></p>
+<p>Just like standard data frames, we can manipulate attributes in geospatial data frames.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add a new column for Elevation</span>
+<span class="n">geo_data</span><span class="p">[</span><span class="s1">&#39;Elevation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1500</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">1700</span><span class="p">]</span>
+
+<span class="c1"># Print the updated GeoDataFrame</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">geo_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Name  Latitude  Longitude           geometry  Elevation
+0  Point A      27.7       85.3  POINT (85.3 27.7)       1500
+1  Point B      28.2       84.9  POINT (84.9 28.2)       2000
+2  Point C      26.9       83.8  POINT (83.8 26.9)       1700
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualization-of-gdf">
+<h3>Visualization of GDF<a class="headerlink" href="#visualization-of-gdf" title="Link to this heading">#</a></h3>
+<p>Geospatial data frames can be visualized using the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> library.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Plot the GeoDataFrame</span>
+<span class="n">geo_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Geospatial Data Points&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6125bf1db1ac7630c7b60083adb9c53a4bd45f378618ef6f381e7a64ad312c66.png" src="_images/6125bf1db1ac7630c7b60083adb9c53a4bd45f378618ef6f381e7a64ad312c66.png" />
+</div>
+</div>
+<p>Geospatial data frames bridge the gap between tabular data and spatial analysis, making them indispensable for modern geospatial workflows. Their versatility, combined with Python’s ecosystem of geospatial libraries, provides an efficient and intuitive way to analyze and visualize spatial data.</p>
+</section>
+</section>
+<section id="polygon-geodataframe">
+<h2>Polygon GeoDataFrame<a class="headerlink" href="#polygon-geodataframe" title="Link to this heading">#</a></h2>
+<p>In Python, the <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> from the <code class="docutils literal notranslate"><span class="pre">GeoPandas</span></code> library is used to represent vector-based spatial data. A GeoDataFrame combines both <em>spatial</em> and <em>tabular</em> data, making it ideal for spatial analysis and data manipulation. It is essentially a data frame with a special geometry column that contains spatial data, such as points, lines, and polygons.</p>
+<p>With a GeoDataFrame, you can perform typical data manipulation tasks, such as filtering, summarizing, and joining, on the tabular data. At the same time, it allows for spatial operations like plotting, spatial indexing, and spatial joins. The <strong>tabular</strong> portion of a GeoDataFrame allows you to perform standard data frame operations (like groupby, sort, merge), while the geometry column enables you to carry out spatial analysis and visualization.</p>
+<p>This section will focus on working with geospatial data, such as the vector data for the Kanchanpur district in Nepal, available in GeoPackage (.gpkg) format. You can download this data, load it using GeoPandas, and perform both spatial and tabular operations. The GeoDataFrame provides a powerful tool for handling, analyzing, and visualizing geographic data, seamlessly integrating both spatial and non-spatial aspects of analysis.</p>
+<section id="structure">
+<h3>Structure<a class="headerlink" href="#structure" title="Link to this heading">#</a></h3>
+<p>The vector GeoDataFrame contains both the geometry column and attribute data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+
+<span class="c1"># Import the GeoDataFrame</span>
+<span class="n">vector_data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;data/vector/kanchanpur.gpkg&quot;</span><span class="p">)</span>
+
+<span class="c1"># View the structure of the GeoDataFrame</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vector_data</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;geopandas.geodataframe.GeoDataFrame&#39;&gt;
+RangeIndex: 21 entries, 0 to 20
+Data columns (total 2 columns):
+ #   Column    Non-Null Count  Dtype   
+---  ------    --------------  -----   
+ 0   NAME      21 non-null     object  
+ 1   geometry  21 non-null     geometry
+dtypes: geometry(1), object(1)
+memory usage: 464.0+ bytes
+None
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Display the first few rows</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vector_data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           NAME                                           geometry
+0  BaisiBichawa  MULTIPOLYGON (((80.49934 28.64667, 80.49709 28...
+1      Beldandi  MULTIPOLYGON (((80.25229 28.75782, 80.25377 28...
+2      Chandani  MULTIPOLYGON (((80.10973 28.98432, 80.10986 28...
+3        Daijee  MULTIPOLYGON (((80.34424 29.05416, 80.34449 29...
+4   Dekhatbhuli  MULTIPOLYGON (((80.44701 28.78921, 80.43608 28...
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="adding-new-columns">
+<h3>Adding New Columns<a class="headerlink" href="#adding-new-columns" title="Link to this heading">#</a></h3>
+<p>In Python, you can add a new column to a GeoDataFrame in a similar way you would add it to a regular DataFrame using <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add a new column - Population</span>
+<span class="n">vector_data</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="mi">37900</span><span class="p">,</span> <span class="mi">46565</span><span class="p">,</span> <span class="mi">72813</span><span class="p">,</span> <span class="mi">49223</span><span class="p">,</span> <span class="mi">52221</span><span class="p">,</span> <span class="mi">64436</span><span class="p">,</span> <span class="mi">40823</span><span class="p">,</span>
+    <span class="mi">97216</span><span class="p">,</span> <span class="mi">36368</span><span class="p">,</span> <span class="mi">277108</span><span class="p">,</span> <span class="mi">51835</span><span class="p">,</span> <span class="mi">38199</span><span class="p">,</span> <span class="mi">46773</span><span class="p">,</span> <span class="mi">44571</span><span class="p">,</span>
+    <span class="mi">48838</span><span class="p">,</span> <span class="mi">11581</span><span class="p">,</span> <span class="mi">131</span><span class="p">,</span> <span class="mi">19211</span><span class="p">,</span> <span class="mi">56755</span><span class="p">,</span> <span class="mi">58257</span><span class="p">,</span> <span class="mi">37573</span>
+<span class="p">]</span>
+
+<span class="c1"># Display the updated GeoDataFrame</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vector_data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           NAME                                           geometry  Population
+0  BaisiBichawa  MULTIPOLYGON (((80.49934 28.64667, 80.49709 28...       37900
+1      Beldandi  MULTIPOLYGON (((80.25229 28.75782, 80.25377 28...       46565
+2      Chandani  MULTIPOLYGON (((80.10973 28.98432, 80.10986 28...       72813
+3        Daijee  MULTIPOLYGON (((80.34424 29.05416, 80.34449 29...       49223
+4   Dekhatbhuli  MULTIPOLYGON (((80.44701 28.78921, 80.43608 28...       52221
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="arithmetic-computation">
+<h3>Arithmetic Computation<a class="headerlink" href="#arithmetic-computation" title="Link to this heading">#</a></h3>
+<p>In Python, you can calculate the area of each geometry in a <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> and create a new column for population density as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reproject vector data to a projected CRS (e.g., UTM zone 45N for this area)</span>
+<span class="n">vector_data</span> <span class="o">=</span> <span class="n">vector_data</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">32645</span><span class="p">)</span>
+
+<span class="c1"># Calculate the area of each district (in square meters)</span>
+<span class="n">vector_data</span><span class="p">[</span><span class="s1">&#39;area_m2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vector_data</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">area</span>
+
+<span class="c1"># Convert the area from square meters to square kilometers</span>
+<span class="n">vector_data</span><span class="p">[</span><span class="s1">&#39;area_km2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vector_data</span><span class="p">[</span><span class="s1">&#39;area_m2&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mf">1e6</span>
+
+<span class="c1"># Add a new column with density (population/area)</span>
+<span class="n">vector_data</span><span class="p">[</span><span class="s1">&#39;Density&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vector_data</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">vector_data</span><span class="p">[</span><span class="s1">&#39;area_km2&#39;</span><span class="p">]</span>
+
+<span class="c1"># Display the updated GeoDataFrame</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vector_data</span><span class="p">[[</span><span class="s1">&#39;NAME&#39;</span><span class="p">,</span> <span class="s1">&#39;Population&#39;</span><span class="p">,</span> <span class="s1">&#39;area_km2&#39;</span><span class="p">,</span> <span class="s1">&#39;Density&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           NAME  Population    area_km2      Density
+0  BaisiBichawa       37900   74.476642   508.884384
+1      Beldandi       46565   24.906232  1869.612393
+2      Chandani       72813   32.517201  2239.214842
+3        Daijee       49223  102.823123   478.715280
+4   Dekhatbhuli       52221   91.109522   573.167312
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="selecting-and-filtering">
+<h3>Selecting and Filtering<a class="headerlink" href="#selecting-and-filtering" title="Link to this heading">#</a></h3>
+<p>You can filter the data using <code class="docutils literal notranslate"><span class="pre">GeoDataFrame</span></code> from <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>. Here’s how you can select specific columns and display the first few rows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select specific columns (e.g., &quot;NAME&quot; and &quot;Population&quot;)</span>
+<span class="n">selected_data</span> <span class="o">=</span> <span class="n">vector_data</span><span class="p">[[</span><span class="s1">&#39;NAME&#39;</span><span class="p">,</span> <span class="s1">&#39;Population&#39;</span><span class="p">]]</span>
+
+<span class="c1"># Display the first few rows</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">selected_data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           NAME  Population
+0  BaisiBichawa       37900
+1      Beldandi       46565
+2      Chandani       72813
+3        Daijee       49223
+4   Dekhatbhuli       52221
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter rows where Population is greater than 60,000</span>
+<span class="n">filtered_data</span> <span class="o">=</span> <span class="n">vector_data</span><span class="p">[</span><span class="n">vector_data</span><span class="p">[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">60000</span><span class="p">]</span>
+
+<span class="c1"># Display the filtered data (similar to tibble in R)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">filtered_data</span><span class="p">[[</span><span class="s1">&#39;NAME&#39;</span><span class="p">,</span> <span class="s1">&#39;Population&#39;</span><span class="p">,</span> <span class="s1">&#39;Density&#39;</span><span class="p">,</span> <span class="s1">&#39;area_km2&#39;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       NAME  Population      Density   area_km2
+2  Chandani       72813  2239.214842  32.517201
+5   Dodhara       64436  2591.163947  24.867589
+7    Kalika       97216  3789.177761  25.656226
+9  Laxmipur      277108  9518.765708  29.111758
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="grouping-and-summarizing">
+<h3>Grouping and Summarizing<a class="headerlink" href="#grouping-and-summarizing" title="Link to this heading">#</a></h3>
+<p>Grouping and summarizing operations are common in data analysis. You can group data based on an attribute and calculate summary statistics for each group.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Group by &#39;NAME&#39; and calculate the total population and average density</span>
+<span class="n">region_summary</span> <span class="o">=</span> <span class="n">vector_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;NAME&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="n">total_population</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Population&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">),</span>
+    <span class="n">average_density</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Density&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># Display the result</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">region_summary</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  NAME  total_population  average_density
+0         BaisiBichawa             37900       508.884384
+1             Beldandi             46565      1869.612393
+2             Chandani             72813      2239.214842
+3               Daijee             49223       478.715280
+4          Dekhatbhuli             52221       573.167312
+5              Dodhara             64436      2591.163947
+6              Jhalari             40823       332.137920
+7               Kalika             97216      3789.177761
+8           Krishnapur             36368       218.213683
+9             Laxmipur            277108      9518.765708
+10   MahendranagarN.P.             51835       299.845566
+11             Parasan             38199      1004.067157
+12            Pipaladi             46773      1087.800781
+13     RaikawarBichawa             44571       545.906632
+14      RampurBilaspur             48838      1236.669117
+15      RauteliBichawa             11581       382.064494
+16  Royal Shuklaphanta               131         0.360413
+17          Shankarpur             19211       538.994951
+18             Sreepur             56755      1012.202386
+19                Suda             58257      1001.135055
+20      Tribhuwanbasti             37573      1911.038295
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">groupby('NAME')</span></code>: Groups the GeoDataFrame by the NAME column, which represents different villages in Kanchanpur district.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">agg()</span></code>: Used to specify the aggregation functions. Here, it calculates the sum of <code class="docutils literal notranslate"><span class="pre">Population</span></code> and the mean of <code class="docutils literal notranslate"><span class="pre">Density</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reset_index()</span></code>: Resets the index after the grouping operation to make sure the resulting <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> is formatted properly.</p></li>
+</ul>
+</section>
+<section id="pivoting-and-reshaping">
+<h3>Pivoting and Reshaping<a class="headerlink" href="#pivoting-and-reshaping" title="Link to this heading">#</a></h3>
+<p>In Python, you can achieve pivoting and reshaping using pandas.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drop geometry column and pivot data into long format</span>
+<span class="n">long_format</span> <span class="o">=</span> <span class="n">vector_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;geometry&#39;</span><span class="p">)</span> \
+                         <span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">],</span> <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Population&quot;</span><span class="p">,</span> <span class="s2">&quot;Density&quot;</span><span class="p">],</span> 
+                               <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;attribute&quot;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;value&quot;</span><span class="p">)</span>
+
+<span class="c1"># Display the first and middle few rows of the reshaped DataFrame</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">long_format</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">23</span><span class="p">],</span> <span class="p">:])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            NAME   attribute         value
+0   BaisiBichawa  Population  37900.000000
+1       Beldandi  Population  46565.000000
+2       Chandani  Population  72813.000000
+21  BaisiBichawa     Density    508.884384
+22      Beldandi     Density   1869.612393
+23      Chandani     Density   2239.214842
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">drop(columns='geometry')</span></code>: This removes the geometry column since it’s not needed for reshaping the tabular data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">melt()</span></code>: This function is used to pivot data from wide to long format.</p></li>
+</ul>
+</section>
+<section id="visualization">
+<h3>Visualization<a class="headerlink" href="#visualization" title="Link to this heading">#</a></h3>
+<p>To plot the population density from a GeoDataFrame using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>, you can do the following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Reproject vector data to a projected CRS (e.g., UTM zone 45N for this area)</span>
+<span class="n">vector_data</span> <span class="o">=</span> <span class="n">vector_data</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+
+<span class="c1"># Plot the Population Density</span>
+<span class="n">vector_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;Density&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Population Density&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b4cc4a81827b73b21a1d972081ee4fc2880ff7ecdd2582024fdd97b1a3072e4e.png" src="_images/b4cc4a81827b73b21a1d972081ee4fc2880ff7ecdd2582024fdd97b1a3072e4e.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="functions.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Functions in Python</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-data-frames">Creating Data Frames</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-and-modifying-data">Accessing and Modifying Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-frame-operations">Data Frame Operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geospatial-data-frames">Geospatial Data Frames</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-gdf">Creating GDF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manipulating-gdf">Manipulating GDF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-of-gdf">Visualization of GDF</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polygon-geodataframe">Polygon GeoDataFrame</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structure">Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-new-columns">Adding New Columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arithmetic-computation">Arithmetic Computation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-and-filtering">Selecting and Filtering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grouping-and-summarizing">Grouping and Summarizing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pivoting-and-reshaping">Pivoting and Reshaping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">Visualization</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Om Prakash Bhandari
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

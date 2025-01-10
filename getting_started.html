@@ -176,6 +176,7 @@
 <li class="toctree-l1"><a class="reference internal" href="vector_operations.html">Basic Vector Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="raster_operations.html">Basic Raster Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="functions.html">Functions in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataframes.html">Data Frames in Python</a></li>
 </ul>
 
     </div>
@@ -414,7 +415,7 @@
 <p>Run this command in the terminal:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">geopandas</span> <span class="n">rasterio</span> <span class="n">pandas</span> <span class="n">matplotlib</span> <span class="n">numpy</span> <span class="n">rasterstats</span> <span class="n">requests</span> <span class="n">os</span> <span class="o">&gt;</span><span class="n">nul</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">geopandas</span> <span class="n">rasterio</span> <span class="n">pandas</span> <span class="n">matplotlib</span> <span class="n">numpy</span> <span class="n">rasterstats</span> <span class="n">requests</span> <span class="n">os</span> <span class="n">shapely</span> <span class="n">plotnine</span> <span class="o">&gt;</span><span class="n">nul</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span>
 </pre></div>
 </div>
 </div>
@@ -434,7 +435,7 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="c1"># List of required packages</span>
-<span class="n">packages</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;geopandas&quot;</span><span class="p">,</span> <span class="s2">&quot;rasterio&quot;</span><span class="p">,</span> <span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="s2">&quot;matplotlib&quot;</span><span class="p">,</span> <span class="s2">&quot;numpy&quot;</span><span class="p">,</span> <span class="s2">&quot;rasterstats&quot;</span><span class="p">,</span> <span class="s2">&quot;requests&quot;</span><span class="p">,</span> <span class="s2">&quot;os&quot;</span><span class="p">]</span>
+<span class="n">packages</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;geopandas&quot;</span><span class="p">,</span> <span class="s2">&quot;rasterio&quot;</span><span class="p">,</span> <span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="s2">&quot;matplotlib&quot;</span><span class="p">,</span> <span class="s2">&quot;numpy&quot;</span><span class="p">,</span> <span class="s2">&quot;rasterstats&quot;</span><span class="p">,</span> <span class="s2">&quot;requests&quot;</span><span class="p">,</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;shapely&quot;</span><span class="p">,</span> <span class="s2">&quot;plotnine&quot;</span><span class="p">]</span>
 
 <span class="c1"># Install missing packages</span>
 <span class="k">for</span> <span class="n">package</span> <span class="ow">in</span> <span class="n">packages</span><span class="p">:</span>
